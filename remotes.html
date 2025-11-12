@@ -1,139 +1,452 @@
+<!-- remotes.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remotes Mastery - ZH</title>
-    <meta name="description" content="Master Luau remotes: batching, throttling, error handling for 2025.">
-    <link rel="canonical" href="https://zvioshub.com/remotes.html">
-    <!-- OG/Twitter similar to index -->
-    <meta property="og:title" content="Remotes Mastery - ZH">
-    <meta property="og:description" content="Advanced Roblox remotes with 2025 techniques.">
-    <meta property="og:image" content="https://zvioshub.com/og-remotes.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "LearningResource",
-        "name": "Remotes Mastery",
-        "description": "Tutorial on Roblox remotes.",
-        "provider": {"@type": "Organization", "name": "Zvios Hub"}
-    }
-    </script>
-    <!-- Same fonts, FontAwesome, Prism, CSP as index -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vsJ3zH3Z3m5I8J9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQJ9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQJ9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQJ9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-51qC+rkcM9yR0xO1RFSU9uWvfjlv9S9B6T89f9Q/zS6l8s5i8m03VHzpbpJ1ET9sBzvDYTZR2y8G6kV9sR7Zvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:;">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Same full CSS as index.html, plus page-specific */
-        .c-toc { position: sticky; top: 100px; width: 250px; background: var(--bg-secondary); padding: var(--spacing-md); border-radius: var(--radius-md); height: fit-content; }
-        .c-toc ul { list-style: none; }
-        .c-toc a { color: var(--text-secondary); text-decoration: none; display: block; padding: var(--spacing-sm); border-radius: var(--radius-sm); transition: var(--transition); }
-        .c-toc a:hover, .c-toc a:focus, .c-toc a.c-toc__link--active { color: var(--primary-color); background: var(--bg-primary); }
-        .c-main-with-toc { display: grid; grid-template-columns: 250px 1fr; gap: 2rem; }
-        @media (max-width: 48rem) { .c-main-with-toc { grid-template-columns: 1fr; } .c-toc { position: static; } }
-        /* Benchmark Table */
-        .c-benchmark-table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
-        .c-benchmark-table th, .c-benchmark-table td { border: 1px solid var(--border-color); padding: var(--spacing-md); text-align: left; }
-        .c-benchmark-table th { background: var(--bg-secondary); }
-        .c-tutorial-nav { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
-        .c-nav-pill { padding: 1rem 2rem; background: var(--bg-secondary); color: var(--text-secondary); text-decoration: none; border-radius: var(--radius-lg); transition: var(--transition); font-weight: 600; box-shadow: var(--shadow-light); }
-        .c-nav-pill:hover, .c-nav-pill--active { background: var(--primary-color); color: white; transform: translateY(-3px); box-shadow: var(--shadow-medium); }
-        .c-tutorial-content { display: none; }
-        .c-tutorial-content--active { display: block; animation: fadeInUp 0.6s ease; }
-        .c-advanced-tip { background: linear-gradient(135deg, var(--success-color), #059669); color: white; padding: 1.5rem; border-radius: var(--radius-lg); margin: 2rem 0; text-align: center; font-weight: 500; }
-        .c-traps-list li { padding: 1.2rem; margin-bottom: 1rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 4px solid var(--accent-color); display: flex; align-items: center; gap: 1rem; }
-        .c-tip-box { background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%); padding: 2rem; border-radius: var(--radius-lg); margin: 2.5rem 0; border-left: 5px solid var(--accent-color); }
-        [data-theme="dark"] .c-tip-box { background: linear-gradient(135deg, #4b5563 0%, #374151 100%); }
-        .c-tip-box i { margin-right: 1rem; color: var(--accent-color); }
-        .c-tip-box h3 { margin-bottom: 0.8rem; color: var(--text-primary); }
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --success-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 0 5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            position: relative;
+        }
+
+        .header-visual {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        /* Tutorial */
+        .tutorial {
+            background: var(--bg-primary);
+        }
+
+        .tutorial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 1rem 2rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--shadow-light);
+        }
+
+        .nav-pill:hover,
+        .nav-pill.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .tutorial-content {
+            display: none;
+        }
+
+        .tutorial-content.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .advanced-tip {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .traps-list li {
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2.5rem 0;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+        }
+
+        .tip-box i {
+            margin-right: 1rem;
+            color: var(--accent-color);
+        }
+
+        .tip-box h3 {
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%);
+            padding: 4rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .discord-footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--success-color);
+            color: white;
+            border-radius: var(--radius-lg);
+        }
+
+        .discord-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .tutorial-nav {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body data-theme="light">
-    <!-- Same progress bar, skip link, nav as index (with active on Remotes) -->
-    <div class="c-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="c-progress-bar__fill" id="progress-fill"></div>
-    </div>
-    <a href="#main-content" class="c-sr-only">Skip to main content</a>
-    <nav class="c-navbar" role="navigation" aria-label="Main navigation">
-        <div class="c-navbar__container">
-            <a href="index.html" class="c-navbar__logo" aria-label="Home - Zvios Hub">
-                <i class="fas fa-code" aria-hidden="true"></i>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
                 ZH
-            </a>
-            <ul class="c-navbar__menu" id="nav-menu">
-                <li><a href="index.html" class="c-navbar__link"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
-                <li><a href="remotes.html" class="c-navbar__link c-navbar__link--active" aria-current="page"><i class="fas fa-broadcast-tower" aria-hidden="true"></i> Remotes</a></li>
-                <li><a href="buttons.html" class="c-navbar__link"><i class="fas fa-mouse-pointer" aria-hidden="true"></i> GUIs</a></li>
-                <li><a href="exploits.html" class="c-navbar__link"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security</a></li>
-                <li><a href="resources.html" class="c-navbar__link"><i class="fas fa-book-open" aria-hidden="true"></i> Resources</a></li>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="remotes.html" class="nav-link active"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
+                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> GUIs</a></li>
+                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="resources.html" class="nav-link"><i class="fas fa-book-open"></i> Resources</a></li>
             </ul>
-            <button class="c-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
-            </button>
-            <button class="c-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
+            <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
-            </button>
+            </div>
         </div>
     </nav>
 
-    <header class="c-page-header">
-        <div class="c-container">
-            <div class="c-header-visual">
-                <i class="fas fa-broadcast-tower" aria-hidden="true"></i>
+    <header class="page-header">
+        <div class="container">
+            <div class="header-visual">
+                <i class="fas fa-broadcast-tower"></i>
             </div>
-            <div class="c-header-content">
+            <div class="header-content">
                 <h1>Remotes: The 2025 Power Play</h1>
                 <p>From basics to batching beasts—master Luau remotes with rate limits, error handling, and server-side sorcery. No more desync nightmares; just seamless multiplayer magic.</p>
             </div>
         </div>
     </header>
 
-    <main id="main-content" role="main">
-        <div class="c-container">
-            <nav class="c-toc" aria-label="Table of contents">
-                <h2>Contents</h2>
-                <ul id="toc-list"></ul>
-            </nav>
-            <div class="c-main-with-toc">
-                <section class="c-section c-tutorial">
-                    <div class="c-tutorial-nav">
-                        <a href="#basics" class="c-nav-pill c-nav-pill--active" aria-current="page">Core Basics</a>
-                        <a href="#advanced" class="c-nav-pill">Advanced 2025</a>
-                        <a href="#examples" class="c-nav-pill">Code Drops</a>
-                        <a href="#traps" class="c-nav-pill">Pitfalls</a>
-                    </div>
+    <main class="main-content">
+        <section class="section tutorial">
+            <div class="container">
+                <div class="tutorial-nav">
+                    <a href="#basics" class="nav-pill active">Core Basics</a>
+                    <a href="#advanced" class="nav-pill">Advanced 2025</a>
+                    <a href="#examples" class="nav-pill">Code Drops</a>
+                    <a href="#traps" class="nav-pill">Pitfalls</a>
+                </div>
 
-                    <div id="basics" class="c-tutorial-content c-tutorial-content--active">
-                        <h2>Foundation Fire</h2>
-                        <p>RemoteEvents for blasts, RemoteFunctions for callbacks. ReplicatedStorage is home base. Server validates—clients? Untrustworthy AF.</p>
-                    </div>
+                <div id="basics" class="tutorial-content active">
+                    <h2>Foundation Fire</h2>
+                    <p>RemoteEvents for blasts, RemoteFunctions for callbacks. ReplicatedStorage is home base. Server validates—clients? Untrustworthy AF.</p>
+                </div>
 
-                    <div id="advanced" class="c-tutorial-content">
-                        <h2>Next-Level: Batching & Throttling</h2>
-                        <p>2025 pro move: Batch payloads in tables to cut remote spam. Add debounce for rate-limiting—prevents lag from hyperactive clients. From DevForum: Use coroutines for async validation.</p>
-                        <div class="c-advanced-tip">
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            Hot Tip: Profile with Microprofiler—spot remote bottlenecks before they bottleneck you.
-                        </div>
-                        <table class="c-benchmark-table" aria-label="Remote performance benchmarks">
-                            <thead><tr><th>Method</th><th>Latency (ms)</th><th>Throughput</th></tr></thead>
-                            <tbody><tr><td>Single Fire</td><td>50</td><td>20/s</td></tr><tr><td>Batched</td><td>10</td><td>100/s</td></tr></tbody>
-                        </table>
+                <div id="advanced" class="tutorial-content">
+                    <h2>Next-Level: Batching & Throttling</h2>
+                    <p>2025 pro move: Batch payloads in tables to cut remote spam. Add debounce for rate-limiting—prevents lag from hyperactive clients. From DevForum: Use coroutines for async validation.</p>
+                    <div class="advanced-tip">
+                        <i class="fas fa-star"></i>
+                        Hot Tip: Profile with Microprofiler—spot remote bottlenecks before they bottleneck you.
                     </div>
+                </div>
 
-                    <div id="examples" class="c-tutorial-content">
-                        <h2>Jump Sync with Batching</h2>
-                        <p>Batch multiple jumps for efficiency. Server verifies with distance + time deltas.</p>
-                        <div class="c-code-block">
-                            <button class="c-copy-btn" aria-label="Copy code">Copy</button>
-                            <h3>Server: Batched Handler</h3>
-                            <pre><code class="language-lua">local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                <div id="examples" class="tutorial-content">
+                    <h2>Jump Sync with Batching</h2>
+                    <p>Batch multiple jumps for efficiency. Server verifies with distance + time deltas.</p>
+                    <div class="code-block">
+                        <h3>Server: Batched Handler</h3>
+                        <pre><code class="language-lua">local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local jumpRemote = ReplicatedStorage:WaitForChild("BatchedJump")
 
 local debounce = {}
@@ -159,11 +472,10 @@ jumpRemote.OnServerEvent:Connect(function(player, jumps)
         end
     end
 end)</code></pre>
-                        </div>
-                        <div class="c-code-block">
-                            <button class="c-copy-btn" aria-label="Copy code">Copy</button>
-                            <h3>Client: Batch Sender</h3>
-                            <pre><code class="language-lua">local batch = {}
+                    </div>
+                    <div class="code-block">
+                        <h3>Client: Batch Sender</h3>
+                        <pre><code class="language-lua">local batch = {}
 local BATCH_DELAY = 0.2
 
 spawn(function()
@@ -179,51 +491,42 @@ end)
 UserInputService.JumpRequest:Connect(function()
     table.insert(batch, {pos = char.HumanoidRootPart.Position, time = tick()})
 end)</code></pre>
-                        </div>
                     </div>
+                </div>
 
-                    <div id="traps" class="c-tutorial-content">
-                        <h2>Dodge These 2025 Traps</h2>
-                        <ul class="c-traps-list">
-                            <li><i class="fas fa-bomb" aria-hidden="true"></i> Unthrottled batches? Instant DoS—cap at 5-10 per tick.</li>
-                            <li><i class="fas fa-clock" aria-hidden="true"></i> No async? Coroutines save your stack from overflow hell.</li>
-                            <li><i class="fas fa-bug" aria-hidden="true"></i> Client timestamps? Fakeable—use server tick for truth.</li>
-                        </ul>
-                        <div class="c-tip-box">
-                            <i class="fas fa-gear" aria-hidden="true"></i>
-                            <h3>ZH Exclusive</h3>
-                            <p>Integrate with DataStores for persistent remote logs—audit exploits retroactively. Discord for full module share.</p>
-                        </div>
+                <div id="traps" class="tutorial-content">
+                    <h2>Dodge These 2025 Traps</h2>
+                    <ul class="traps-list">
+                        <li><i class="fas fa-bomb"></i> Unthrottled batches? Instant DoS—cap at 5-10 per tick.</li>
+                        <li><i class="fas fa-clock"></i> No async? Coroutines save your stack from overflow hell.</li>
+                        <li><i class="fas fa-bug"></i> Client timestamps? Fakeable—use server tick for truth.</li>
+                    </ul>
+                    <div class="tip-box">
+                        <i class="fas fa-gear"></i>
+                        <h3>ZH Exclusive</h3>
+                        <p>Integrate with DataStores for persistent remote logs—audit exploits retroactively. Discord for full module share.</p>
                     </div>
-                </section>
-
-                <!-- Related Content -->
-                <aside aria-label="Related content">
-                    <h3>You Might Also Like</h3>
-                    <ul><li><a href="buttons.html">GUI Integration</a></li><li><a href="exploits.html">Security for Remotes</a></li></ul>
-                </aside>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Same footer as index -->
-
-    <footer class="c-footer" role="contentinfo">
-        <div class="c-container">
-            <div class="c-footer__content">
-                <div class="c-footer__logo">
-                    <i class="fas fa-code" aria-hidden="true"></i>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
                     ZH - Zvios Hub
                 </div>
                 <p>&copy; 2025 Zvios Hub. Crafted with grit, glitches, and green text. Pure education—script smart, play fair.</p>
-                <nav class="c-footer__links" aria-label="Footer navigation">
+                <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="#basics">Top</a>
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener">Discord</a>
-                </nav>
-                <div class="c-discord-footer">
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener">
-                        <i class="fab fa-discord" aria-hidden="true"></i>
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">Discord</a>
+                </div>
+                <div class="discord-footer">
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">
+                        <i class="fab fa-discord"></i>
                         Got Remote Woes? Ping Us
                     </a>
                 </div>
@@ -231,141 +534,55 @@ end)</code></pre>
         </div>
     </footer>
 
-    <!-- Toast -->
-    <div id="toast" class="c-toast" role="status" aria-live="polite" aria-atomic="true">Copied!</div>
-
     <script>
-        // Same utils as index
-        const utils = {
-            debounce(fn, delay) {
-                let timeout;
-                return (...args) => {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => fn(...args), delay);
-                };
-            },
-            copyToClipboard(text) {
-                navigator.clipboard.writeText(text).then(() => {
-                    const toast = document.getElementById('toast');
-                    toast.classList.add('c-toast--show');
-                    setTimeout(() => toast.classList.remove('c-toast--show'), 2000);
-                }).catch(err => console.error('Copy failed', err));
-            }
-        };
-
-        // DOM Ready
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                // Same theme, mobile menu, smooth scroll, progress bar as index
-
-                const body = document.body;
-                const themeIcon = document.getElementById('theme-icon');
-                const savedTheme = localStorage.getItem('theme') || 'light';
-                body.dataset.theme = savedTheme;
-                themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-                document.getElementById('theme-toggle').addEventListener('click', () => {
-                    const isDark = body.dataset.theme === 'dark';
-                    body.dataset.theme = isDark ? 'light' : 'dark';
-                    themeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-                    localStorage.setItem('theme', body.dataset.theme);
-                });
-
-                const hamburger = document.getElementById('hamburger');
-                const navMenu = document.getElementById('nav-menu');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar & theme same as index
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (hamburger && navMenu) {
                 hamburger.addEventListener('click', () => {
-                    const isActive = navMenu.classList.toggle('c-navbar__menu--active');
-                    hamburger.setAttribute('aria-expanded', isActive);
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
                 });
-                document.querySelectorAll('.c-navbar__link').forEach(link => {
+                document.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', () => {
                         hamburger.classList.remove('active');
-                        navMenu.classList.remove('c-navbar__menu--active');
-                        hamburger.setAttribute('aria-expanded', 'false');
+                        navMenu.classList.remove('active');
                     });
                 });
-
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', e => {
-                        e.preventDefault();
-                        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-                    });
-                });
-
-                const updateProgress = utils.debounce(() => {
-                    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-                    const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
-                    document.getElementById('progress-fill').style.width = `${progress}%`;
-                }, 10);
-                window.addEventListener('scroll', updateProgress);
-                updateProgress();
-
-                // Tab switch
-                document.querySelectorAll('.c-nav-pill').forEach(pill => {
-                    pill.addEventListener('click', e => {
-                        e.preventDefault();
-                        const targetId = pill.getAttribute('href').substring(1);
-                        document.querySelectorAll('.c-nav-pill').forEach(p => p.classList.remove('c-nav-pill--active'));
-                        document.querySelectorAll('.c-tutorial-content').forEach(c => c.classList.remove('c-tutorial-content--active'));
-                        pill.classList.add('c-nav-pill--active');
-                        document.getElementById(targetId).classList.add('c-tutorial-content--active');
-                    });
-                });
-
-                // TOC Generation
-                const headings = document.querySelectorAll('h2[id]');
-                const tocList = document.getElementById('toc-list');
-                headings.forEach(heading => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = `#${heading.id}`;
-                    a.textContent = heading.textContent;
-                    a.classList.add('c-toc__link');
-                    li.appendChild(a);
-                    tocList.appendChild(li);
-                });
-                // Active TOC on scroll
-                const highlightToc = utils.debounce(() => {
-                    let lastId = '';
-                    headings.forEach(heading => {
-                        const top = heading.getBoundingClientRect().top;
-                        if (top < 100) lastId = heading.id;
-                    });
-                    document.querySelectorAll('.c-toc__link').forEach(link => link.classList.remove('c-toc__link--active'));
-                    document.querySelector(`.c-toc__link[href="#${lastId}"]`)?.classList.add('c-toc__link--active');
-                }, 100);
-                window.addEventListener('scroll', highlightToc);
-
-                // Fade in
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) entry.target.classList.add('c-fade-in-up');
-                    });
-                });
-                document.querySelectorAll('.c-tutorial-content, .c-code-block').forEach(el => observer.observe(el));
-
-                // Copy Buttons
-                document.querySelectorAll('.c-copy-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const code = btn.closest('.c-code-block').querySelector('pre code').textContent;
-                        utils.copyToClipboard(code);
-                    });
-                });
-
-                Prism.highlightAll();
-
-                // Progress Tracking
-                if (localStorage.getItem('zh-progress-remotes') === 'completed') {
-                    // Show completion badge
-                    const badge = document.createElement('div');
-                    badge.textContent = 'Completed!';
-                    badge.classList.add('c-advanced-tip');
-                    document.querySelector('.c-tutorial-nav').appendChild(badge);
-                }
-
-            } catch (error) {
-                console.error('Init failed:', error);
-                document.body.classList.add('no-js');
             }
+
+            const themeToggle = document.getElementById('theme-icon');
+            const body = document.body;
+            themeToggle.addEventListener('click', () => {
+                const isDark = body.dataset.theme === 'dark';
+                body.dataset.theme = isDark ? 'light' : 'dark';
+                themeToggle.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+                localStorage.setItem('theme', body.dataset.theme);
+            });
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.dataset.theme = savedTheme;
+            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Tab switch
+            document.querySelectorAll('.nav-pill').forEach(pill => {
+                pill.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = pill.getAttribute('href').substring(1);
+                    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+                    document.querySelectorAll('.tutorial-content').forEach(c => c.classList.remove('active'));
+                    pill.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // Fade in
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
+                });
+            });
+            document.querySelectorAll('.tutorial-content, .code-block').forEach(el => observer.observe(el));
         });
     </script>
 </body>
