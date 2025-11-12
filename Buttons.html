@@ -4,21 +4,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buttons & GUIs in Roblox - Roblox Script Hub</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Buttons & GUIs Mastery - Roblox Vault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .header-visual {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        /* Tutorial */
+        .tutorial {
+            background: var(--bg-primary);
+        }
+
+        .tutorial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .nav-pill:hover,
+        .nav-pill.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tutorial-content {
+            display: none;
+        }
+
+        .tutorial-content.active {
+            display: block;
+        }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tips-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+        }
+
+        .tip-box i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .tip-box h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .tutorial-nav {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">Roblox Script Hub</a>
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                Roblox Vault
+            </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="remotes.html">Remotes</a></li>
-                <li><a href="buttons.html" class="active">Buttons & GUIs</a></li>
-                <li><a href="exploits.html">Security Basics</a></li>
-                <li><a href="resources.html">Resources</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="remotes.html" class="nav-link"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
+                <li><a href="buttons.html" class="nav-link active"><i class="fas fa-mouse-pointer"></i> Buttons & GUIs</a></li>
+                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="resources.html" class="nav-link"><i class="fas fa-book-open"></i> Resources</a></li>
             </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -29,74 +377,105 @@
 
     <header class="page-header">
         <div class="container">
-            <h1>Building Buttons & GUIs</h1>
-            <p>GUIs aren't just pretty—they're your game's front door. Let's make buttons that click, hover, and feel alive.</p>
+            <div class="header-visual">
+                <i class="fas fa-mouse-pointer"></i>
+            </div>
+            <div class="header-content">
+                <h1>Buttons: The Click Whisperers</h1>
+                <p>Bad GUIs kill vibes faster than a lag spike. Good ones? They pull players in like magnets. We're crafting buttons that bounce, glow, and beg to be pressed—responsive across devices, zero jank.</p>
+            </div>
         </div>
     </header>
 
     <main class="main-content">
         <section class="section tutorial">
             <div class="container">
-                <h2>Starting a Basic GUI</h2>
-                <p>Drop a ScreenGui into StarterGui. Inside? A Frame, then a TextButton. Boom, interactive.</p>
+                <div class="tutorial-nav">
+                    <a href="#setup" class="nav-pill active">Setup</a>
+                    <a href="#effects" class="nav-pill">Effects</a>
+                    <a href="#besties" class="nav-pill">Best Practices</a>
+                </div>
 
-                <div class="code-block">
-                    <h3>LocalScript for Button Click</h3>
-                    <pre><code>local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+                <div id="setup" class="tutorial-content active">
+                    <h2>Frame It Up</h2>
+                    <p>StarterGui > ScreenGui > Frame > TextButton. Position with UDim2 for that "fits everywhere" flex. TextScaled keeps labels crisp.</p>
+                    <div class="code-block">
+                        <h3>Core Button Build (LocalScript)</h3>
+                        <pre><code class="language-lua"><span class="keyword">local</span> Players = game:GetService(<span class="string">"Players"</span>)
+<span class="keyword">local</span> player = Players.LocalPlayer
+<span class="keyword">local</span> playerGui = player:WaitForChild(<span class="string">"PlayerGui"</span>)
 
-local screenGui = Instance.new("ScreenGui")
+<span class="keyword">local</span> screenGui = Instance.new(<span class="string">"ScreenGui"</span>)
+screenGui.Name = <span class="string">"MyCoolGui"</span>
 screenGui.Parent = playerGui
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 200, 0, 100)
-frame.Position = UDim2.new(0.5, -100, 0.5, -50)
-frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+<span class="keyword">local</span> frame = Instance.new(<span class="string">"Frame"</span>)
+frame.Size = UDim2.new(<span class="number">0</span>, <span class="number">250</span>, <span class="number">0</span>, <span class="number">120</span>)
+frame.Position = UDim2.new(<span class="number">0.5</span>, -<span class="number">125</span>, <span class="number">0.5</span>, -<span class="number">60</span>)
+frame.BackgroundColor3 = Color3.fromRGB(<span class="number">45</span>, <span class="number">55</span>, <span class="number">72</span>)
+frame.BorderSizePixel = <span class="number">0</span>
 frame.Parent = screenGui
 
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(1, 0, 1, 0)
-button.Text = "Click Me!"
-button.BackgroundColor3 = Color3.fromRGB(0, 162, 255)
-button.TextColor3 = Color3.new(1,1,1)
+<span class="keyword">local</span> corner = Instance.new(<span class="string">"UICorner"</span>)
+corner.CornerRadius = UDim.new(<span class="number">0</span>, <span class="number">12</span>)
+corner.Parent = frame
+
+<span class="keyword">local</span> button = Instance.new(<span class="string">"TextButton"</span>)
+button.Size = UDim2.new(<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)
+button.Text = <span class="string">"Launch Adventure"</span>
+button.TextColor3 = Color3.new(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)
+button.TextScaled = <span class="keyword">true</span>
+button.BackgroundTransparency = <span class="number">1</span>
 button.Parent = frame
 
-button.MouseButton1Click:Connect(function()
-    button.Text = "Clicked!"
-    wait(1)
-    button.Text = "Click Me!"
-end)</code></pre>
+button.MouseButton1Click:Connect(<span class="keyword">function</span>()
+    print(<span class="string">"Adventure awaits!"</span>)
+    <span class="comment">-- Fire remote or tween something fun</span>
+<span class="keyword">end</span>)</code></pre>
+                    </div>
                 </div>
 
-                <h2>Adding Polish</h2>
-                <p>Hovers? Use MouseEnter/MouseLeave. TweenService for smooth animations.</p>
-                <div class="code-block">
-                    <pre><code>local TweenService = game:GetService("TweenService")
+                <div id="effects" class="tutorial-content">
+                    <h2>Make 'Em Dance</h2>
+                    <p>Tweens for that buttery feel. Enter: scale up, color shift. Leave: fade out gentle.</p>
+                    <div class="code-block">
+                        <h3>Tween Magic</h3>
+                        <pre><code class="language-lua"><span class="keyword">local</span> TweenService = game:GetService(<span class="string">"TweenService"</span>)
 
-local hoverTween = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-local hoverProps = {BackgroundColor3 = Color3.fromRGB(0, 120, 200)}
+<span class="keyword">local</span> enterInfo = TweenInfo.new(<span class="number">0.3</span>, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+<span class="keyword">local</span> enterProps = {
+    BackgroundColor3 = Color3.fromRGB(<span class="number">100</span>, <span class="number">181</span>, <span class="number">246</span>),
+    Size = UDim2.new(<span class="number">1.05</span>, <span class="number">0</span>, <span class="number">1.05</span>, <span class="number">0</span>)
+}
 
-button.MouseEnter:Connect(function()
-    TweenService:Create(button, hoverTween, hoverProps):Play()
-end)
+<span class="keyword">local</span> leaveInfo = TweenInfo.new(<span class="number">0.2</span>, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+<span class="keyword">local</span> leaveProps = {
+    BackgroundColor3 = Color3.fromRGB(<span class="number">52</span>, <span class="number">152</span>, <span class="number">219</span>),
+    Size = UDim2.new(<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)
+}
 
-button.MouseLeave:Connect(function()
-    local leaveProps = {BackgroundColor3 = Color3.fromRGB(0, 162, 255)}
-    TweenService:Create(button, hoverTween, leaveProps):Play()
-end)</code></pre>
+button.MouseEnter:Connect(<span class="keyword">function</span>()
+    TweenService:Create(button, enterInfo, enterProps):Play()
+<span class="keyword">end</span>)
+
+button.MouseLeave:Connect(<span class="keyword">function</span>()
+    TweenService:Create(button, leaveInfo, leaveProps):Play()
+<span class="keyword">end</span>)</code></pre>
+                    </div>
                 </div>
 
-                <h2>Pro Moves</h2>
-                <ul>
-                    <li>UDim2 for responsive sizing—scale with screen.</li>
-                    <li>Connect to remotes for server actions.</li>
-                    <li>Test on mobile; buttons gotta be thumb-friendly.</li>
-                </ul>
-
-                <div class="tip-box">
-                    <h3>Quick Tip</h3>
-                    <p>UIListLayout keeps things tidy. No manual positioning headaches.</p>
+                <div id="besties" class="tutorial-content">
+                    <h2>Street-Smart Tips</h2>
+                    <ul class="tips-list">
+                        <li><i class="fas fa-mobile-alt"></i> Scale for screens—UDim2 or UIAspectRatioConstraint.</li>
+                        <li><i class="fas fa-sync-alt"></i> Debounce clicks to dodge double-taps.</li>
+                        <li><i class="fas fa-paint-brush"></i> Themes? Use ModuleScripts for color swaps.</li>
+                    </ul>
+                    <div class="tip-box">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Power Play</h3>
+                        <p>UIStroke for borders that glow. Pairs killer with gradients.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -104,10 +483,69 @@ end)</code></pre>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Roblox Script Hub. Built with curiosity and a bit of caffeine. For educational purposes only.</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
+                    Roblox Vault
+                </div>
+                <p>&copy; 2025. Forged in late-night debugging sessions. Educational only—keep it clean, keep it fun.</p>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="#setup">Top</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu on link click
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-icon');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', function() {
+                body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+                const isDark = body.dataset.theme === 'dark';
+                themeToggle.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                localStorage.setItem('theme', body.dataset.theme);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.dataset.theme = savedTheme;
+            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Tab switching for tutorials
+            document.querySelectorAll('.nav-pill').forEach(pill => {
+                pill.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+                    document.querySelectorAll('.tutorial-content').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
