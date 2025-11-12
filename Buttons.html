@@ -8,8 +8,221 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Similar to remotes, reuse and add */
-        /* ... (omit for brevity, assume same base + additions) */
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --success-color: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 8rem 0 5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            position: relative;
+        }
+
+        .header-visual {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        /* Tutorial */
+        .tutorial {
+            background: var(--bg-primary);
+        }
+
+        .tutorial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 1rem 2rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--shadow-light);
+        }
+
+        .nav-pill:hover,
+        .nav-pill.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .tutorial-content {
+            display: none;
+        }
+
+        .tutorial-content.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
         .ui-grid-demo {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -31,10 +244,178 @@
         [data-theme="dark"] .ui-demo-item {
             background: var(--bg-secondary);
         }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2.5rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .tips-list li {
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2.5rem 0;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+        }
+
+        .tip-box i {
+            margin-right: 1rem;
+            color: var(--accent-color);
+        }
+
+        .tip-box h3 {
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%);
+            padding: 4rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .discord-footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--success-color);
+            color: white;
+            border-radius: var(--radius-lg);
+        }
+
+        .discord-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .tutorial-nav {
+                flex-direction: column;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <!-- Nav same, active on GUIs -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                ZH
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="remotes.html" class="nav-link"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
+                <li><a href="buttons.html" class="nav-link active"><i class="fas fa-mouse-pointer"></i> GUIs</a></li>
+                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="resources.html" class="nav-link"><i class="fas fa-book-open"></i> Resources</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
     <header class="page-header">
         <div class="container">
@@ -60,13 +441,46 @@
 
                 <div id="setup" class="tutorial-content active">
                     <h2>Frame & Button Forge</h2>
-                    <p>ScreenGui > Frame > TextButton. UDim2 for flex, UICorner for crisp edges.</p>
-                    <!-- Code block same as before -->
+                    <p>StarterGui > ScreenGui > Frame > TextButton. UDim2 for flex, UICorner for crisp edges. TextScaled keeps labels crisp on all devices.</p>
+                    <div class="code-block">
+                        <h3>Core Button Build (LocalScript)</h3>
+                        <pre><code class="language-lua">local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "MyCoolGui"
+screenGui.Parent = playerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 120)
+frame.Position = UDim2.new(0.5, -125, 0.5, -60)
+frame.BackgroundColor3 = Color3.fromRGB(45, 55, 72)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 12)
+corner.Parent = frame
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(1, 0, 1, 0)
+button.Text = "Launch Adventure"
+button.TextColor3 = Color3.new(1,1,1)
+button.TextScaled = true
+button.BackgroundTransparency = 1
+button.Parent = frame
+
+button.MouseButton1Click:Connect(function()
+    print("Adventure awaits!")
+    -- Fire remote or tween something fun
+end)</code></pre>
+                    </div>
                 </div>
 
                 <div id="layouts" class="tutorial-content">
                     <h2>UIListLayout Magic</h2>
-                    <p>From DevForum: Grids for inventories, Pages for menus. Auto-sorts, no manual pos hell.</p>
+                    <p>From DevForum: Grids for inventories, Pages for menus. Auto-sorts, no manual pos hell. 2025 update: UIGridLayout with CellPadding for tighter control.</p>
                     <div class="ui-grid-demo">
                         <div class="ui-demo-item"><i class="fas fa-th"></i> Inventory Grid</div>
                         <div class="ui-demo-item"><i class="fas fa-list"></i> Shop List</div>
@@ -88,12 +502,37 @@ gridLayout.Parent = frame</code></pre>
                 </div>
 
                 <div id="effects" class="tutorial-content">
-                    <!-- Tween code same -->
+                    <h2>Make 'Em Dance</h2>
+                    <p>Tweens for that buttery feel. Enter: scale up, color shift. Leave: fade out gentle. 2025: Use EasingStyle.Sine for natural bounces.</p>
+                    <div class="code-block">
+                        <h3>Tween Magic</h3>
+                        <pre><code class="language-lua">local TweenService = game:GetService("TweenService")
+
+local enterInfo = TweenInfo.new(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out)
+local enterProps = {
+    BackgroundColor3 = Color3.fromRGB(100, 181, 246),
+    Size = UDim2.new(1.05, 0, 1.05, 0)
+}
+
+local leaveInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+local leaveProps = {
+    BackgroundColor3 = Color3.fromRGB(52, 152, 219),
+    Size = UDim2.new(1, 0, 1, 0)
+}
+
+button.MouseEnter:Connect(function()
+    TweenService:Create(button, enterInfo, enterProps):Play()
+end)
+
+button.MouseLeave:Connect(function()
+    TweenService:Create(button, leaveInfo, leaveProps):Play()
+end)</code></pre>
+                    </div>
                 </div>
 
                 <div id="optim" class="tutorial-content">
                     <h2>Perf Pro Tips</h2>
-                    <p>Single ScreenGui per purpose. Reuse instances for backgrounds/buttons. ScreenInset: Legacy for buttons—avoids core UI overlap.</p>
+                    <p>Single ScreenGui per purpose. Reuse instances for backgrounds/buttons. ScreenInset: Legacy for buttons—avoids core UI overlap. 2025: Use UIStroke for lightweight borders.</p>
                     <ul class="tips-list">
                         <li><i class="fas fa-speedometer"></i> Pool tweens—don't create per hover.</li>
                         <li><i class="fas fa-mobile-alt"></i> Aspect constraints for cross-device glory.</li>
@@ -102,13 +541,86 @@ gridLayout.Parent = frame</code></pre>
                     <div class="tip-box">
                         <i class="fas fa-lightning-bolt"></i>
                         <h3>ZH Hack</h3>
-                        <p>Roblox's 2025 UI profiler in Studio—spot redraw hogs early.</p>
+                        <p>Roblox's 2025 UI profiler in Studio—spot redraw hogs early. Discord for shared profiler scripts.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer same -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
+                    ZH - Zvios Hub
+                </div>
+                <p>&copy; 2025 Zvios Hub. Crafted with grit, glitches, and green text. Pure education—script smart, play fair.</p>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="#setup">Top</a>
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">Discord</a>
+                </div>
+                <div class="discord-footer">
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">
+                        <i class="fab fa-discord"></i>
+                        GUI Gripes? Chat Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar & theme same as index
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+
+            const themeToggle = document.getElementById('theme-icon');
+            const body = document.body;
+            themeToggle.addEventListener('click', () => {
+                const isDark = body.dataset.theme === 'dark';
+                body.dataset.theme = isDark ? 'light' : 'dark';
+                themeToggle.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+                localStorage.setItem('theme', body.dataset.theme);
+            });
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.dataset.theme = savedTheme;
+            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Tab switch
+            document.querySelectorAll('.nav-pill').forEach(pill => {
+                pill.addEventListener('click', e => {
+                    e.preventDefault();
+                    const targetId = pill.getAttribute('href').substring(1);
+                    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+                    document.querySelectorAll('.tutorial-content').forEach(c => c.classList.remove('active'));
+                    pill.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // Fade in
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
+                });
+            });
+            document.querySelectorAll('.tutorial-content, .code-block, .ui-grid-demo').forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>
