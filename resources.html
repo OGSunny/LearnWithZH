@@ -4,21 +4,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources - Roblox Script Hub</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Resource Trove - Roblox Vault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .header-visual {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        /* Resources */
+        .resources {
+            background: var(--bg-tertiary);
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            background: var(--bg-primary);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .resource-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .resource-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-card li {
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .resource-card a:hover {
+            color: var(--secondary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-color);
+            grid-column: 1 / -1;
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+        }
+
+        .tip-box i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .tip-box h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">Roblox Script Hub</a>
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                Roblox Vault
+            </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="remotes.html">Remotes</a></li>
-                <li><a href="buttons.html">Buttons & GUIs</a></li>
-                <li><a href="exploits.html">Security Basics</a></li>
-                <li><a href="resources.html" class="active">Resources</a></li>
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="remotes.html" class="nav-link"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
+                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> Buttons & GUIs</a></li>
+                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="resources.html" class="nav-link active"><i class="fas fa-book-open"></i> Resources</a></li>
             </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -29,35 +367,52 @@
 
     <header class="page-header">
         <div class="container">
-            <h1>Extra Goodies</h1>
-            <p>Books, vids, and forums to keep the learning going. You've got this.</p>
+            <div class="header-visual">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="header-content">
+                <h1>Resource Trove</h1>
+                <p>Don't stop at the vault—stock up here. Docs, vids, forums packed with dev wisdom. It's like a endless coffee refill for your brain.</p>
+            </div>
         </div>
     </header>
 
     <main class="main-content">
         <section class="section resources">
             <div class="container">
-                <h2>Official Stuff</h2>
-                <ul>
-                    <li><a href="https://create.roblox.com/docs" target="_blank">Roblox Creator Docs</a> – The bible.</li>
-                    <li><a href="https://devforum.roblox.com/" target="_blank">DevForum</a> – Ask away.</li>
-                </ul>
-
-                <h2>Videos & Tutorials</h2>
-                <ul>
-                    <li><a href="https://www.youtube.com/c/AlvinBlox" target="_blank">AlvinBlox</a> – Beginner-friendly series.</li>
-                    <li><a href="https://www.youtube.com/c/TheDevKing" target="_blank">TheDevKing</a> – Deep dives.</li>
-                </ul>
-
-                <h2>Communities</h2>
-                <ul>
-                    <li>Discord: Search "Roblox Dev" servers.</li>
-                    <li>Reddit: r/robloxgamedev</li>
-                </ul>
-
-                <div class="tip-box">
-                    <h3>Pro Tip</h3>
-                    <p>Practice on uncopylocked games. Remix, don't steal.</p>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Official Gold</h3>
+                        <ul>
+                            <li><a href="https://create.roblox.com/docs" target="_blank">Creator Documentation <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://devforum.roblox.com/" target="_blank">DevForum Threads <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://create.roblox.com/docs/tutorials" target="_blank">Step-by-Step Tutorials <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Vault</h3>
+                        <ul>
+                            <li><a href="https://www.youtube.com/c/AlvinBlox" target="_blank">AlvinBlox Basics <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.youtube.com/c/PeaPee" target="_blank">PeaPee Advanced <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://www.youtube.com/playlist?list=PLhoqOYeC4Kq4O8y0oI0m0z0z0z0z0z0z" target="_blank">GUI Deep Dives <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Community Hubs</h3>
+                        <ul>
+                            <li><a href="https://www.reddit.com/r/robloxgamedev/" target="_blank">r/robloxgamedev <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://discord.gg/robloxdev" target="_blank">Official Discord <i class="fas fa-external-link-alt"></i></a></li>
+                            <li><a href="https://github.com/Roblox" target="_blank">GitHub Repos <i class="fas fa-external-link-alt"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tip-box full-width">
+                    <i class="fas fa-search"></i>
+                    <h3>Pro Scout</h3>
+                    <p>Uncopylock gems on the toolbox—fork, tweak, learn. Credit creators; karma's a thing.</p>
                 </div>
             </div>
         </section>
@@ -65,10 +420,57 @@
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Roblox Script Hub. Built with curiosity and a bit of caffeine. For educational purposes only.</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
+                    Roblox Vault
+                </div>
+                <p>&copy; 2025. Forged in late-night debugging sessions. Educational only—keep it clean, keep it fun.</p>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="#resources">Top</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu on link click
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-icon');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', function() {
+                body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+                const isDark = body.dataset.theme === 'dark';
+                themeToggle.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                localStorage.setItem('theme', body.dataset.theme);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.dataset.theme = savedTheme;
+            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    </script>
 </body>
 </html>
