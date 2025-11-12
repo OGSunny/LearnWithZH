@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remotes Deep Dive - Roblox Vault</title>
+    <title>Remotes Mastery - ZH</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Reuse styles from index, but add page-specific */
         :root {
             --primary-color: #6366f1;
             --secondary-color: #8b5cf6;
@@ -56,7 +57,7 @@
             padding: 0 1.5rem;
         }
 
-        /* Navbar */
+        /* Navbar - same as index */
         .navbar {
             background: var(--bg-primary);
             backdrop-filter: blur(10px);
@@ -85,7 +86,7 @@
             color: var(--primary-color);
             text-decoration: none;
             font-size: 1.5rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .nav-menu {
@@ -144,33 +145,34 @@
 
         /* Page Header */
         .page-header {
-            padding: 6rem 0 4rem;
+            padding: 8rem 0 5rem;
             text-align: center;
-            background: var(--bg-secondary);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            position: relative;
         }
 
         .header-visual {
-            font-size: 4rem;
+            font-size: 5rem;
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .header-content h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             font-weight: 700;
         }
 
         .header-content p {
-            font-size: 1.2rem;
-            max-width: 700px;
+            font-size: 1.25rem;
+            max-width: 800px;
             margin: 0 auto;
             opacity: 0.9;
         }
 
         /* Sections */
         .section {
-            padding: 5rem 0;
+            padding: 6rem 0;
         }
 
         .section h2 {
@@ -194,19 +196,22 @@
         }
 
         .nav-pill {
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             background: var(--bg-secondary);
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius-md);
+            border-radius: var(--radius-lg);
             transition: var(--transition);
-            font-weight: 500;
+            font-weight: 600;
+            box-shadow: var(--shadow-light);
         }
 
         .nav-pill:hover,
         .nav-pill.active {
             background: var(--primary-color);
             color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
         }
 
         .tutorial-content {
@@ -215,40 +220,46 @@
 
         .tutorial-content.active {
             display: block;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .advanced-tip {
+            background: linear-gradient(135deg, var(--success-color), #059669);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 2rem 0;
+            text-align: center;
+            font-weight: 500;
         }
 
         .code-block {
             background: var(--bg-tertiary);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 1.5rem;
-            margin: 2rem 0;
+            padding: 2rem;
+            margin: 2.5rem 0;
             overflow-x: auto;
         }
 
         .code-block h3 {
             color: var(--primary-color);
             margin-bottom: 1rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
 
         pre {
             font-family: 'JetBrains Mono', monospace;
-            line-height: 1.5;
+            line-height: 1.6;
             white-space: pre-wrap;
         }
 
-        .traps-list {
-            list-style: none;
-            padding: 0;
-        }
-
         .traps-list li {
-            padding: 1rem;
+            padding: 1.2rem;
             margin-bottom: 1rem;
             background: var(--bg-secondary);
             border-radius: var(--radius-sm);
-            border-left: 4px solid var(--primary-color);
+            border-left: 4px solid var(--accent-color);
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -256,10 +267,10 @@
 
         .tip-box {
             background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
-            padding: 1.5rem;
-            border-radius: var(--radius-md);
-            margin: 2rem 0;
-            border-left: 4px solid var(--accent-color);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2.5rem 0;
+            border-left: 5px solid var(--accent-color);
         }
 
         [data-theme="dark"] .tip-box {
@@ -267,19 +278,19 @@
         }
 
         .tip-box i {
-            margin-right: 0.5rem;
+            margin-right: 1rem;
             color: var(--accent-color);
         }
 
         .tip-box h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             color: var(--text-primary);
         }
 
-        /* Footer */
+        /* Footer - same as index */
         .footer {
-            background: var(--bg-secondary);
-            padding: 3rem 0 1rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%);
+            padding: 4rem 0 1rem;
             color: var(--text-secondary);
         }
 
@@ -292,16 +303,17 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--primary-color);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
         }
 
         .footer-links {
             display: flex;
             gap: 2rem;
             justify-content: center;
-            margin-top: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
         }
 
         .footer-links a {
@@ -312,6 +324,23 @@
 
         .footer-links a:hover {
             color: var(--primary-color);
+        }
+
+        .discord-footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--success-color);
+            color: white;
+            border-radius: var(--radius-lg);
+        }
+
+        .discord-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         /* Mobile */
@@ -341,12 +370,13 @@
             }
 
             .section {
-                padding: 3rem 0;
+                padding: 4rem 0;
             }
+        }
 
-            .section h2 {
-                font-size: 2rem;
-            }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -355,12 +385,12 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <i class="fas fa-code"></i>
-                Roblox Vault
+                ZH
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="remotes.html" class="nav-link active"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
-                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> Buttons & GUIs</a></li>
+                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> GUIs</a></li>
                 <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
                 <li><a href="resources.html" class="nav-link"><i class="fas fa-book-open"></i> Resources</a></li>
             </ul>
@@ -381,8 +411,8 @@
                 <i class="fas fa-broadcast-tower"></i>
             </div>
             <div class="header-content">
-                <h1>Remotes: Wiring the Invisible</h1>
-                <p>Remotes aren't glamorous, but they're the glue holding multiplayer magic together. Mess 'em up, and your game's a solo act. Let's wire 'em right—client pings server, server nods back, no crossed lines.</p>
+                <h1>Remotes: The 2025 Power Play</h1>
+                <p>From basics to batching beasts—master Luau remotes with rate limits, error handling, and server-side sorcery. No more desync nightmares; just seamless multiplayer magic.</p>
             </div>
         </div>
     </header>
@@ -391,70 +421,90 @@
         <section class="section tutorial">
             <div class="container">
                 <div class="tutorial-nav">
-                    <a href="#basics" class="nav-pill active">Basics</a>
-                    <a href="#examples" class="nav-pill">Examples</a>
-                    <a href="#traps" class="nav-pill">Traps to Dodge</a>
+                    <a href="#basics" class="nav-pill active">Core Basics</a>
+                    <a href="#advanced" class="nav-pill">Advanced 2025</a>
+                    <a href="#examples" class="nav-pill">Code Drops</a>
+                    <a href="#traps" class="nav-pill">Pitfalls</a>
                 </div>
 
                 <div id="basics" class="tutorial-content active">
-                    <h2>The Lowdown</h2>
-                    <p>RemoteEvents for one-shot blasts (fire and forget). RemoteFunctions if you need that "got it?" callback. Pro move: Stash 'em in ReplicatedStorage. And yeah, servers always double-check—clients fib like politicians.</p>
+                    <h2>Foundation Fire</h2>
+                    <p>RemoteEvents for blasts, RemoteFunctions for callbacks. ReplicatedStorage is home base. Server validates—clients? Untrustworthy AF.</p>
+                </div>
+
+                <div id="advanced" class="tutorial-content">
+                    <h2>Next-Level: Batching & Throttling</h2>
+                    <p>2025 pro move: Batch payloads in tables to cut remote spam. Add debounce for rate-limiting—prevents lag from hyperactive clients. From DevForum: Use coroutines for async validation.</p>
+                    <div class="advanced-tip">
+                        <i class="fas fa-star"></i>
+                        Hot Tip: Profile with Microprofiler—spot remote bottlenecks before they bottleneck you.
+                    </div>
                 </div>
 
                 <div id="examples" class="tutorial-content">
-                    <h2>Hands-On: Jump Sync</h2>
-                    <p>Server tracks jumps to prevent fly hacks. Client reports, server verifies distance. Clean, mean, green.</p>
+                    <h2>Jump Sync with Batching</h2>
+                    <p>Batch multiple jumps for efficiency. Server verifies with distance + time deltas.</p>
                     <div class="code-block">
-                        <h3>Server Side (Script in ServerScriptService)</h3>
-                        <pre><code class="language-lua"><span class="comment">-- ReplicatedStorage RemoteEvent</span>
-<span class="keyword">local</span> ReplicatedStorage = game:GetService(<span class="string">"ReplicatedStorage"</span>)
-<span class="keyword">local</span> jumpRemote = Instance.new(<span class="string">"RemoteEvent"</span>)
-jumpRemote.Name = <span class="string">"JumpReport"</span>
-jumpRemote.Parent = ReplicatedStorage
+                        <h3>Server: Batched Handler</h3>
+                        <pre><code class="language-lua">local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local jumpRemote = ReplicatedStorage:WaitForChild("BatchedJump")
 
-jumpRemote.OnServerEvent:Connect(<span class="keyword">function</span>(player, jumpPos)
-    <span class="comment">-- Sanity: Is this jump fishy?</span>
-    <span class="keyword">local</span> char = player.Character
-    <span class="keyword">if</span> char <span class="keyword">and</span> char:FindFirstChild(<span class="string">"HumanoidRootPart"</span>) <span class="keyword">then</span>
-        <span class="keyword">local</span> dist = (jumpPos - char.HumanoidRootPart.Position).Magnitude
-        <span class="keyword">if</span> dist &lt; <span class="number">20</span> <span class="keyword">then</span>  <span class="comment">-- Reasonable jump</span>
-            print(player.Name .. <span class="string">" legit jumped at "</span> .. tostring(jumpPos))
-            <span class="comment">-- Trigger effects or leaderstats</span>
-        <span class="keyword">else</span>
-            warn(<span class="string">"Dodgy jump from "</span> .. player.Name)
-        <span class="keyword">end</span>
-    <span class="keyword">end</span>
-<span class="keyword">end</span>)</code></pre>
+local debounce = {}
+local BATCH_SIZE = 5
+
+jumpRemote.OnServerEvent:Connect(function(player, jumps)
+    if debounce[player.UserId] and tick() - debounce[player.UserId] < 0.1 then return end
+    debounce[player.UserId] = tick()
+    
+    if #jumps > BATCH_SIZE then return end  -- Anti-spam
+    
+    for _, jumpData in ipairs(jumps) do
+        local pos, timestamp = jumpData.pos, jumpData.time
+        local char = player.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            local dist = (pos - char.HumanoidRootPart.Position).Magnitude
+            if dist < 25 and tick() - timestamp < 1 then
+                -- Valid batch jump
+                print(player.Name .. " batched jump valid")
+            else
+                warn("Invalid batch from " .. player.Name)
+            end
+        end
+    end
+end)</code></pre>
                     </div>
                     <div class="code-block">
-                        <h3>Client Side (LocalScript in StarterPlayerScripts)</h3>
-                        <pre><code class="language-lua"><span class="keyword">local</span> ReplicatedStorage = game:GetService(<span class="string">"ReplicatedStorage"</span>)
-<span class="keyword">local</span> UserInputService = game:GetService(<span class="string">"UserInputService"</span>)
-<span class="keyword">local</span> Players = game:GetService(<span class="string">"Players"</span>)
+                        <h3>Client: Batch Sender</h3>
+                        <pre><code class="language-lua">local batch = {}
+local BATCH_DELAY = 0.2
 
-<span class="keyword">local</span> player = Players.LocalPlayer
-<span class="keyword">local</span> jumpRemote = ReplicatedStorage:WaitForChild(<span class="string">"JumpReport"</span>)
+spawn(function()
+    while true do
+        wait(BATCH_DELAY)
+        if #batch > 0 then
+            jumpRemote:FireServer(batch)
+            batch = {}
+        end
+    end
+end)
 
-UserInputService.JumpRequest:Connect(<span class="keyword">function</span>()
-    <span class="keyword">local</span> char = player.Character
-    <span class="keyword">if</span> char <span class="keyword">and</span> char:FindFirstChild(<span class="string">"HumanoidRootPart"</span>) <span class="keyword">then</span>
-        jumpRemote:FireServer(char.HumanoidRootPart.Position)
-    <span class="keyword">end</span>
-<span class="keyword">end</span>)</code></pre>
+UserInputService.JumpRequest:Connect(function()
+    table.insert(batch, {pos = char.HumanoidRootPart.Position, time = tick()})
+end)</code></pre>
                     </div>
                 </div>
 
                 <div id="traps" class="tutorial-content">
-                    <h2>Watch Your Step</h2>
+                    <h2>Dodge These 2025 Traps</h2>
                     <ul class="traps-list">
-                        <li><i class="fas fa-exclamation-circle"></i> No validation? Hello, infinite yield exploits.</li>
-                        <li><i class="fas fa-clock"></i> Spam remotes without debounce—lag apocalypse.</li>
-                        <li><i class="fas fa-folder-open"></i> Wrong storage? Remotes vanish like ghosts.</li>
+                        <li><i class="fas fa-bomb"></i> Unthrottled batches? Instant DoS—cap at 5-10 per tick.</li>
+                        <li><i class="fas fa-clock"></i> No async? Coroutines save your stack from overflow hell.</li>
+                        <li><i class="fas fa-bug"></i> Client timestamps? Fakeable—use server tick for truth.</li>
                     </ul>
                     <div class="tip-box">
-                        <i class="fas fa-lightbulb"></i>
-                        <h3>Insider Hack</h3>
-                        <p>Batch your fires with tables. One remote, many payloads—efficiency FTW.</p>
+                        <i class="fas fa-gear"></i>
+                        <h3>ZH Exclusive</h3>
+                        <p>Integrate with DataStores for persistent remote logs—audit exploits retroactively. Discord for full module share.</p>
                     </div>
                 </div>
             </div>
@@ -466,12 +516,19 @@ UserInputService.JumpRequest:Connect(<span class="keyword">function</span>()
             <div class="footer-content">
                 <div class="footer-logo">
                     <i class="fas fa-code"></i>
-                    Roblox Vault
+                    ZH - Zvios Hub
                 </div>
-                <p>&copy; 2025. Forged in late-night debugging sessions. Educational only—keep it clean, keep it fun.</p>
+                <p>&copy; 2025 Zvios Hub. Crafted with grit, glitches, and green text. Pure education—script smart, play fair.</p>
                 <div class="footer-links">
                     <a href="index.html">Home</a>
                     <a href="#basics">Top</a>
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">Discord</a>
+                </div>
+                <div class="discord-footer">
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">
+                        <i class="fab fa-discord"></i>
+                        Got Remote Woes? Ping Us
+                    </a>
                 </div>
             </div>
         </div>
@@ -479,17 +536,14 @@ UserInputService.JumpRequest:Connect(<span class="keyword">function</span>()
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Mobile menu toggle
+            // Navbar & theme same as index
             const hamburger = document.querySelector('.hamburger');
             const navMenu = document.querySelector('.nav-menu');
-
             if (hamburger && navMenu) {
-                hamburger.addEventListener('click', function() {
+                hamburger.addEventListener('click', () => {
                     hamburger.classList.toggle('active');
                     navMenu.classList.toggle('active');
                 });
-
-                // Close menu on link click
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', () => {
                         hamburger.classList.remove('active');
@@ -498,33 +552,37 @@ UserInputService.JumpRequest:Connect(<span class="keyword">function</span>()
                 });
             }
 
-            // Theme toggle
             const themeToggle = document.getElementById('theme-icon');
             const body = document.body;
-
-            themeToggle.addEventListener('click', function() {
-                body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            themeToggle.addEventListener('click', () => {
                 const isDark = body.dataset.theme === 'dark';
-                themeToggle.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                body.dataset.theme = isDark ? 'light' : 'dark';
+                themeToggle.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
                 localStorage.setItem('theme', body.dataset.theme);
             });
-
-            // Load saved theme
             const savedTheme = localStorage.getItem('theme') || 'light';
             body.dataset.theme = savedTheme;
             themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 
-            // Tab switching for tutorials
+            // Tab switch
             document.querySelectorAll('.nav-pill').forEach(pill => {
-                pill.addEventListener('click', function(e) {
+                pill.addEventListener('click', e => {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
                     document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
                     document.querySelectorAll('.tutorial-content').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
+                    pill.classList.add('active');
                     document.getElementById(targetId).classList.add('active');
                 });
             });
+
+            // Fade in
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
+                });
+            });
+            document.querySelectorAll('.tutorial-content, .code-block').forEach(el => observer.observe(el));
         });
     </script>
 </body>
