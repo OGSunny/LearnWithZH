@@ -4,21 +4,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox Scripting Hub - Learn the Basics</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Roblox Scripting Vault - Level Up Your Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #ec4899;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --border-color: #374151;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            opacity: 0.9;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, white 0%, #f3f4f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .cta-button.primary {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            background: var(--bg-secondary);
+        }
+
+        .header-visual {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .spotlight {
+            background: var(--bg-secondary);
+        }
+
+        .spotlight-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .spotlight-intro p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Cards Grid */
+        .cards-grid,
+        .stories-grid,
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card,
+        .story-card,
+        .resource-card {
+            background: var(--bg-primary);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover,
+        .story-card:hover,
+        .resource-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-large);
+        }
+
+        .card-icon,
+        .story-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3,
+        .story-card h3,
+        .resource-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p,
+        .story-card p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .card-link:hover span {
+            color: var(--secondary-color);
+        }
+
+        .card-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Stories */
+        .stories {
+            background: var(--bg-tertiary);
+        }
+
+        .story-card {
+            padding: 2rem;
+        }
+
+        .story-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            text-align: center;
+        }
+
+        .disclaimer-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .disclaimer-content i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Tutorial */
+        .tutorial {
+            background: var(--bg-primary);
+        }
+
+        .tutorial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .nav-pill:hover,
+        .nav-pill.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .tutorial-content {
+            display: none;
+        }
+
+        .tutorial-content.active {
+            display: block;
+        }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.5;
+            white-space: pre-wrap;
+        }
+
+        .traps-list,
+        .tips-list,
+        .defenses-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .traps-list li,
+        .tips-list li,
+        .defenses-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
+            padding: 1.5rem;
+            border-radius: var(--radius-md);
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+        }
+
+        .tip-box i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .tip-box h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .resources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 3rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tutorial-nav {
+                flex-direction: column;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">Roblox Script Hub</a>
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
+                Roblox Vault
+            </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="remotes.html">Remotes</a></li>
-                <li><a href="buttons.html">Buttons & GUIs</a></li>
-                <li><a href="exploits.html">Security Basics</a></li>
-                <li><a href="resources.html">Resources</a></li>
+                <li><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="remotes.html" class="nav-link"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
+                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> Buttons & GUIs</a></li>
+                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="resources.html" class="nav-link"><i class="fas fa-book-open"></i> Resources</a></li>
             </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -28,34 +624,81 @@
     </nav>
 
     <header class="hero">
+        <div class="hero-bg"></div>
         <div class="hero-content">
-            <h1>Welcome to Roblox Scripting Hub</h1>
-            <p class="hero-subtitle">Your no-nonsense guide to leveling up your Roblox dev skills. We're talking remotes, slick GUIs, and staying sharp on security—all for educational vibes only. No exploits in the wild, just pure learning.</p>
-            <a href="#start-learning" class="cta-button">Start Learning</a>
+            <h1 class="hero-title">Unlock the Code</h1>
+            <p class="hero-subtitle">Ever stared at a Roblox game and thought, "How the heck does that work?" This vault's got your back. Dive into remotes that sync worlds, buttons that pop like fireworks, and security tricks to keep the griefers out. All straight-up educational—no cap, just code.</p>
+            <div class="hero-buttons">
+                <a href="#vault" class="cta-button primary">Crack It Open</a>
+                <a href="resources.html" class="cta-button secondary">Grab Tools</a>
+            </div>
         </div>
     </header>
 
     <main class="main-content">
-        <section id="start-learning" class="section intro">
+        <section id="vault" class="section spotlight">
             <div class="container">
-                <h2>Why Script on Roblox?</h2>
-                <p>Roblox isn't just games—it's a playground for creators. Whether you're building your first obby or a massive RPG, scripting ties it all together. Here, we break it down without the fluff. Think of this as your coffee-fueled coding companion.</p>
+                <div class="spotlight-intro">
+                    <h2>What's in the Vault?</h2>
+                    <p>Picture this: You're knee-deep in Studio, coffee's cold, but that script's finally clicking. We cut the BS—real examples, gotchas, and "aha" moments that stick. Built by devs who’ve rage-quit more times than they can count.</p>
+                </div>
                 
                 <div class="cards-grid">
-                    <div class="card">
-                        <h3>Remotes: Client-Server Magic</h3>
-                        <p>Learn how to ping data between players and servers without breaking a sweat.</p>
-                        <a href="remotes.html" class="card-link">Dive In</a>
+                    <div class="card feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-broadcast-tower"></i>
+                        </div>
+                        <h3>Remotes: The Bridge Builders</h3>
+                        <p>Client-server handshakes that don't ghost you. Learn to fire events without the drama.</p>
+                        <a href="remotes.html" class="card-link">
+                            <span>Enter the Bridge</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="card">
-                        <h3>Buttons That Actually Work</h3>
-                        <p>Craft interactive GUIs that feel native and respond like pros.</p>
-                        <a href="buttons.html" class="card-link">Dive In</a>
+                    <div class="card feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-mouse-pointer"></i>
+                        </div>
+                        <h3>Buttons: Touch of Genius</h3>
+                        <p>GUIs that feel like they belong—responsive, snappy, and zero lag. From hover glows to click confetti.</p>
+                        <a href="buttons.html" class="card-link">
+                            <span>Click to Start</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
                     </div>
-                    <div class="card">
-                        <h3>Exploits? Nah, Prevention</h3>
-                        <p>Understand the dark side to build unbreakable games. Education first, always.</p>
-                        <a href="exploits.html" class="card-link">Dive In</a>
+                    <div class="card feature-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security: Lock It Down</h3>
+                        <p>Exploits? We spot 'em so you don't get hit. Validation voodoo and sanity checks for ironclad games.</p>
+                        <a href="exploits.html" class="card-link">
+                            <span>Fortify Now</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section stories">
+            <div class="container">
+                <h2>Real Talk from the Trenches</h2>
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>The Remote That Saved My Server</h3>
+                        <p>One bad fire-all-clients loop crashed my obby for 50 players. Switched to targeted remotes—smooth sailing ever since. Lesson: Scope your signals.</p>
+                    </div>
+                    <div class="story-card">
+                        <i class="fas fa-bug"></i>
+                        <h3>Button Blues to UI Wins</h3>
+                        <p>Flat buttons? Snooze. Added TweenService magic—now my shop GUI converts lurkers to buyers. Pro tip: Test on potato phones.</p>
+                    </div>
+                    <div class="story-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>Exploit Hunt Gone Right</h3>
+                        <p>Caught a speed hack mid-game. Server-side distance checks nuked it. Felt like a cybersecurity cowboy. Your turn to holster up.</p>
                     </div>
                 </div>
             </div>
@@ -63,18 +706,95 @@
 
         <section class="section disclaimer">
             <div class="container">
-                <h2>A Quick Note</h2>
-                <p>This site's all about education. Use what you learn to create awesome experiences for everyone. Roblox ToS is your bible—stick to it, and we'll all have more fun.</p>
+                <div class="disclaimer-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>Heads Up, Dev</h2>
+                    <p>This vault's for building dreams, not breaking rules. Roblox ToS is non-negotiable—use your powers for good, or don't use 'em at all. Questions? Hit the DevForum; we're all in this glitch together.</p>
+                    <a href="https://create.roblox.com/docs" target="_blank" class="cta-button secondary">Roblox Docs</a>
+                </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Roblox Script Hub. Built with curiosity and a bit of caffeine. For educational purposes only.</p>
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
+                    Roblox Vault
+                </div>
+                <p>&copy; 2025. Forged in late-night debugging sessions. Educational only—keep it clean, keep it fun.</p>
+                <div class="footer-links">
+                    <a href="resources.html">More Loot</a>
+                    <a href="#vault">Back to Top</a>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu on link click
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                    });
+                });
+            }
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-icon');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', function() {
+                body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+                const isDark = body.dataset.theme === 'dark';
+                themeToggle.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+                localStorage.setItem('theme', body.dataset.theme);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.dataset.theme = savedTheme;
+            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Tab switching for tutorials (if on tutorial page)
+            document.querySelectorAll('.nav-pill').forEach(pill => {
+                pill.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+                    document.querySelectorAll('.tutorial-content').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
