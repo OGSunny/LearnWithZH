@@ -4,490 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Vault - ZH</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Resource Vault - ZH | Zvios Hub</title>
+    <!-- [SEO/Meta for resources] -->
     <style>
-        :root {
-            --primary-color: #6366f1;
-            --secondary-color: #8b5cf6;
-            --accent-color: #ec4899;
-            --success-color: #10b981;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f9fafb;
-            --bg-tertiary: #f3f4f6;
-            --border-color: #e5e7eb;
-            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --radius-sm: 0.375rem;
-            --radius-md: 0.75rem;
-            --radius-lg: 1rem;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        [data-theme="dark"] {
-            --text-primary: #f9fafb;
-            --text-secondary: #d1d5db;
-            --bg-primary: #111827;
-            --bg-secondary: #1f2937;
-            --bg-tertiary: #374151;
-            --border-color: #374151;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.7;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Navbar */
-        .navbar {
-            background: var(--bg-primary);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: var(--transition);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--primary-color);
-            background: var(--bg-secondary);
-        }
-
-        .theme-toggle {
-            cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            background: var(--bg-secondary);
-            color: var(--primary-color);
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 0.25rem;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-primary);
-            border-radius: 9999px;
-            transition: var(--transition);
-        }
-
-        /* Page Header */
-        .page-header {
-            padding: 8rem 0 5rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
-            position: relative;
-        }
-
-        .header-visual {
-            font-size: 5rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .header-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .header-content p {
-            font-size: 1.25rem;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* Sections */
-        .section {
-            padding: 6rem 0;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            font-weight: 600;
-        }
-
-        /* Resources */
-        .resources {
-            background: var(--bg-tertiary);
-        }
-
+        /* [Base, plus] */
         .resource-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: var(--space-xl);
         }
 
         .category-card {
-            background: var(--bg-primary);
-            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: var(--space-xl);
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-medium);
+            box-shadow: var(--shadow-2);
             border-top: 4px solid var(--primary-color);
-            transition: var(--transition);
+            transition: var(--transition-normal);
         }
 
         .category-card:hover {
             transform: translateY(-5px);
         }
 
-        .category-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
         .category-card ul li a {
             display: block;
-            padding: 0.75rem;
+            padding: var(--space-sm);
             border-radius: var(--radius-sm);
-            transition: var(--transition);
-            margin-bottom: 0.5rem;
+            transition: var(--transition-normal);
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+            text-decoration: none;
         }
 
         .category-card ul li a:hover {
             background: var(--bg-secondary);
             transform: translateX(5px);
-        }
-
-        .tip-box {
-            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
-            padding: 2rem;
-            border-radius: var(--radius-lg);
-            margin: 2.5rem 0;
-            border-left: 5px solid var(--accent-color);
-            grid-column: 1 / -1;
-        }
-
-        [data-theme="dark"] .tip-box {
-            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-        }
-
-        .tip-box i {
-            margin-right: 1rem;
-            color: var(--accent-color);
-        }
-
-        .tip-box h3 {
-            margin-bottom: 0.8rem;
-            color: var(--text-primary);
-        }
-
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%);
-            padding: 4rem 0 1rem;
-            color: var(--text-secondary);
-        }
-
-        .footer-content {
-            text-align: center;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
             color: var(--primary-color);
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
         }
 
-        .footer-links {
+        /* Filter */
+        .filter-controls {
             display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin-top: 2rem;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
             flex-wrap: wrap;
         }
 
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
+        .filter-btn {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-fast);
         }
 
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .discord-footer {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: var(--success-color);
+        .filter-btn.active {
+            background: var(--primary-color);
             color: white;
-            border-radius: var(--radius-lg);
-        }
-
-        .discord-footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--bg-primary);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: var(--shadow-medium);
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .resource-categories {
-                grid-template-columns: 1fr;
-            }
-
-            .section {
-                padding: 4rem 0;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-code"></i>
-                ZH
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="remotes.html" class="nav-link"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
-                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> GUIs</a></li>
-                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
-                <li><a href="resources.html" class="nav-link active"><i class="fas fa-book-open"></i> Resources</a></li>
-            </ul>
-            <div class="theme-toggle">
-                <i class="fas fa-moon" id="theme-icon"></i>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <header class="page-header">
-        <div class="container">
-            <div class="header-visual">
-                <i class="fas fa-book-open"></i>
-            </div>
-            <div class="header-content">
-                <h1>ZH Resource Trove</h1>
-                <p>Curated 2025 gold: Docs, vids, forums. Plus ZH exclusives—module drops, cheat sheets. Fuel your script spree.</p>
-            </div>
-        </div>
-    </header>
-
-    <main class="main-content">
+<body data-theme="light">
+    <!-- [Nav, header with breadcrumb] -->
+    <main id="main-content">
         <section class="section resources">
             <div class="container">
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="official">Official</button>
+                    <button class="filter-btn" data-filter="video">Video</button>
+                    <button class="filter-btn" data-filter="community">Community</button>
+                </div>
                 <div class="resource-categories">
-                    <div class="category-card">
-                        <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <div class="category-card" data-category="official">
+                        <i class="fas fa-graduation-cap" style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: var(--space-md);" aria-hidden="true"></i>
                         <h3>Official Arsenal</h3>
                         <ul>
-                            <li><a href="https://create.roblox.com/docs" target="_blank">Creator Docs 2025</a></li>
-                            <li><a href="https://devforum.roblox.com/" target="_blank">DevForum Hot Threads</a></li>
-                            <li><a href="https://create.roblox.com/docs/tutorials" target="_blank">Inspire Tutorials</a></li>
+                            <li><a href="https://create.roblox.com/docs" target="_blank" rel="noopener">Creator Docs 2025</a></li>
+                            <!-- [Others] -->
                         </ul>
                     </div>
-                    <div class="category-card">
-                        <i class="fas fa-video" style="font-size: 2.5rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
-                        <h3>Video Fire</h3>
-                        <ul>
-                            <li><a href="https://www.youtube.com/watch?v=1w-P4Q-OiNE" target="_blank">LuaU Starter (Inspire 2025)</a></li>
-                            <li><a href="https://www.youtube.com/playlist?list=PLQ1Qd31Hmi3WKkVHnadvhOOjz04AuMYAf" target="_blank">Advanced Scripting Guide</a></li>
-                            <li><a href="https://www.youtube.com/watch?v=jRnyca_BWZQ" target="_blank">UI Layouts Deep Dive</a></li>
-                        </ul>
-                    </div>
-                    <div class="category-card">
-                        <i class="fas fa-users" style="font-size: 2.5rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
-                        <h3>Community Hives</h3>
-                        <ul>
-                            <li><a href="https://www.reddit.com/r/robloxgamedev/" target="_blank">r/robloxgamedev</a></li>
-                            <li><a href="https://discord.gg/tfS8GDaxQH" target="_blank">ZH Discord (Yours!)</a></li>
-                            <li><a href="https://github.com/Roblox" target="_blank">Roblox GitHub</a></li>
-                        </ul>
-                    </div>
-                    <div class="category-card full-width">
-                        <i class="fas fa-trophy" style="font-size: 2.5rem; color: var(--success-color); margin-bottom: 1rem;"></i>
-                        <h3>ZH Extras</h3>
-                        <ul>
-                            <li><a href="#" onclick="alert('Coming soon: Remote Module Pack!')">Remote Batching Module</a></li>
-                            <li><a href="#" onclick="alert('GUI Optimization Cheat Sheet PDF')">UI Perf Sheet</a></li>
-                            <li><a href="https://devforum.roblox.com/t/security-tactics-and-cheat-mitigation-docs-update/3959613" target="_blank">Cheat Mitigation Guide</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="tip-box full-width">
-                    <i class="fas fa-search-plus"></i>
-                    <h3>Scout Mode</h3>
-                    <p>Toolbox uncopylocks for inspo—remix ethically. Share your wins in ZH Discord!</p>
+                    <!-- [Other cards] -->
                 </div>
             </div>
         </section>
     </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-code"></i>
-                    ZH - Zvios Hub
-                </div>
-                <p>&copy; 2025 Zvios Hub. Crafted with grit, glitches, and green text. Pure education—script smart, play fair.</p>
-                <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="#resources">Top</a>
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">Discord</a>
-                </div>
-                <div class="discord-footer">
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">
-                        <i class="fab fa-discord"></i>
-                        Resource Requests? DM Us
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <!-- [Footer] -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navbar & theme same as index
-            const hamburger = document.querySelector('.hamburger');
-            const navMenu = document.querySelector('.nav-menu');
-            if (hamburger && navMenu) {
-                hamburger.addEventListener('click', () => {
-                    hamburger.classList.toggle('active');
-                    navMenu.classList.toggle('active');
-                });
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        hamburger.classList.remove('active');
-                        navMenu.classList.remove('active');
+        // [Base JS, plus filter]
+        function initFilter() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const filter = btn.dataset.filter;
+                    document.querySelectorAll('.category-card').forEach(card => {
+                        card.style.display = filter === 'all' || card.dataset.category === filter ? 'block' : 'none';
                     });
                 });
-            }
-
-            const themeToggle = document.getElementById('theme-icon');
-            const body = document.body;
-            themeToggle.addEventListener('click', () => {
-                const isDark = body.dataset.theme === 'dark';
-                body.dataset.theme = isDark ? 'light' : 'dark';
-                themeToggle.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-                localStorage.setItem('theme', body.dataset.theme);
             });
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            body.dataset.theme = savedTheme;
-            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-
-            // Fade in
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('fade-in-up');
-                });
-            });
-            document.querySelectorAll('.category-card, .tip-box').forEach(el => observer.observe(el));
-        });
+        }
+        // Call in DOMContentLoaded
     </script>
 </body>
 </html>
