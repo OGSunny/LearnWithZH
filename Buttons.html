@@ -5,61 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUIs & Buttons - ZH | Zvios Hub</title>
-    <!-- [Similar SEO/Meta as remotes.html, tailored] -->
     <meta name="description" content="Build pixel-perfect Roblox GUIs in 2025: Layouts, animations, optimization. Live previews and code from Zvios Hub.">
-    <!-- [OG, Twitter, JSON-LD similar, change title/desc] -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <meta name="keywords" content="Roblox GUIs, TextButton, TweenService, UIListLayout, mobile UI, Zvios Hub">
+    <link rel="canonical" href="https://zviolshub.com/buttons.html">
+    <!-- Open Graph -->
+    <meta property="og:title" content="GUIs & Buttons - ZH | Zvios Hub">
+    <meta property="og:description" content="Craft UIs that scale and shine—mobile-first layouts, smooth tweens, and perf hacks for 2025.">
+    <meta property="og:image" content="https://zviolshub.com/og-guis.jpg">
+    <meta property="og:url" content="https://zviolshub.com/buttons.html">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="GUIs & Buttons - ZH">
+    <meta name="twitter:description" content="UI sorcery with ZH.">
+    <meta name="twitter:image" content="https://zviolshub.com/og-guis.jpg">
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "GUIs & Buttons Mastery",
+        "description": "Roblox UI design and optimization tutorial.",
+        "author": {"@type": "Person", "name": "Zvios"},
+        "provider": {"@type": "Organization", "name": "Zvios Hub"}
+    }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
-        /* [All variables and base styles from index.html] */
-
-        /* Page-Specific: UI Demo */
-        .ui-grid-demo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: var(--space-md);
-            margin: var(--space-xl) 0;
-            background: var(--bg-tertiary);
-            padding: var(--space-md);
-            border-radius: var(--radius-md);
-        }
-
-        .ui-demo-item {
-            background: white;
-            padding: var(--space-md);
-            text-align: center;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-1);
-            transition: var(--transition-normal);
-            cursor: pointer;
-        }
-
-        .ui-demo-item:hover {
-            transform: scale(1.05);
-            box-shadow: var(--shadow-2);
-        }
-
-        [data-theme="dark"] .ui-demo-item {
-            background: var(--bg-secondary);
-        }
-
-        /* Live Preview Frame */
-        .live-preview {
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            margin: var(--space-xl) 0;
-            max-width: 400px;
-            box-shadow: var(--shadow-3);
-        }
-
-        /* [Rest of styles] */
+        /* Full CSS from index.html - Inlined for standalone */
+        /* [Paste the entire <style> block from index.html here] */
     </style>
 </head>
 <body data-theme="light">
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <nav class="navbar" role="navigation" aria-label="Main navigation">
-        <!-- [Same navbar, active on GUIs] -->
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo" aria-label="Zvios Hub Home">
+                <i class="fas fa-code" aria-hidden="true"></i>
+                ZH
+            </a>
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="index.html" class="nav-link" role="menuitem"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
+                <li role="none"><a href="remotes.html" class="nav-link" role="menuitem"><i class="fas fa-broadcast-tower" aria-hidden="true"></i> Remotes</a></li>
+                <li role="none"><a href="buttons.html" class="nav-link active" role="menuitem"><i class="fas fa-mouse-pointer" aria-hidden="true"></i> GUIs</a></li>
+                <li role="none"><a href="exploits.html" class="nav-link" role="menuitem"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security</a></li>
+                <li role="none"><a href="resources.html" class="nav-link" role="menuitem"><i class="fas fa-book-open" aria-hidden="true"></i> Resources</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
+            </button>
+            <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 
     <header class="page-header">
@@ -67,7 +68,7 @@
             <nav aria-label="Breadcrumb">
                 <ol class="breadcrumb">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="buttons.html">GUIs</a></li>
+                    <li aria-current="page">GUIs</li>
                 </ol>
             </nav>
             <div class="header-visual">
@@ -83,7 +84,10 @@
     <main id="main-content" class="main-content">
         <section class="section tutorial">
             <div class="container">
-                <!-- [TOC aside] -->
+                <aside class="toc" aria-label="Table of contents">
+                    <h3>Contents</h3>
+                    <ul id="toc-list"></ul>
+                </aside>
                 <div class="tutorial-nav">
                     <a href="#setup" class="nav-pill active">Build Basics</a>
                     <a href="#layouts" class="nav-pill">Layouts 2025</a>
@@ -91,23 +95,79 @@
                     <a href="#optim" class="nav-pill">Optimization</a>
                 </div>
 
-                <div id="setup" class="tutorial-content active">
+                <div id="setup" class="tutorial-content active" tabindex="-1">
                     <h2 id="frame-forge">Frame & Button Forge</h2>
                     <p>StarterGui > ScreenGui > Frame > TextButton. UDim2 for flex, UICorner for crisp edges. TextScaled keeps labels crisp on all devices.</p>
                     <div class="live-preview">
-                        <!-- Simulated Roblox GUI preview -->
-                        <div style="background: #45,55,72; height: 120px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 12px 12px 0 0;">
+                        <div style="background: #2d3748; height: 120px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; border-radius: 12px 12px 0 0; font-family: 'Inter', sans-serif;">
                             Launch Adventure
                         </div>
                     </div>
                     <div class="code-block">
-                        <!-- [Code with copy btn] -->
+                        <h3>Basic Button Setup</h3>
+                        <pre><code class="language-lua">local button = script.Parent -- TextButton
+button.Size = UDim2.new(0, 200, 0, 50)
+button.Position = UDim2.new(0.5, -100, 0.5, -25)
+button.Text = "Launch Adventure"
+button.TextScaled = true
+button.BackgroundColor3 = Color3.fromRGB(45, 55, 72)
+button.BorderSizePixel = 0
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = button</code></pre>
                     </div>
                 </div>
 
-                <!-- [Other tabs similar, with ui-grid-demo, tweens code] -->
+                <div id="layouts" class="tutorial-content" tabindex="-1">
+                    <h2 id="layout-magic">Layout Magic: UIList & Grid</h2>
+                    <p>UIListLayout for auto-stacking, UIGridLayout for responsive grids. AbsoluteSize for dynamic sizing—2025 essential for multi-device.</p>
+                    <div class="ui-grid-demo">
+                        <div class="ui-demo-item" onclick="this.style.background = '#4f46e5'; this.style.color = 'white';">
+                            <i class="fas fa-home" style="font-size: 2rem; color: var(--primary-color);"></i>
+                            <p>Dashboard</p>
+                        </div>
+                        <div class="ui-demo-item" onclick="this.style.background = '#4f46e5'; this.style.color = 'white';">
+                            <i class="fas fa-shopping-cart" style="font-size: 2rem; color: var(--primary-color);"></i>
+                            <p>Shop</p>
+                        </div>
+                        <div class="ui-demo-item" onclick="this.style.background = '#4f46e5'; this.style.color = 'white';">
+                            <i class="fas fa-trophy" style="font-size: 2rem; color: var(--primary-color);"></i>
+                            <p>Leaderboard</p>
+                        </div>
+                    </div>
+                    <div class="code-block">
+                        <h3>UIListLayout Example</h3>
+                        <pre><code class="language-lua">local listLayout = Instance.new("UIListLayout")
+listLayout.Parent = frame
+listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+listLayout.Padding = UDim.new(0, 10)
+listLayout.FillDirection = Enum.FillDirection.Vertical
+listLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center</code></pre>
+                    </div>
+                </div>
 
-                <div id="optim" class="tutorial-content">
+                <div id="effects" class="tutorial-content" tabindex="-1">
+                    <h2 id="tween-tactics">Tween Tactics: Smooth Hovers</h2>
+                    <p>TweenService for buttery animations. EaseInOutQuad for natural feel. 2025 tip: Animate BackgroundTransparency for subtle feedback.</p>
+                    <div class="code-block">
+                        <h3>Hover Tween</h3>
+                        <pre><code class="language-lua">local TweenService = game:GetService("TweenService")
+
+local hoverTween = TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 220, 0, 55), BackgroundColor3 = Color3.fromRGB(79, 70, 229)})
+
+button.MouseEnter:Connect(function()
+    hoverTween:Play()
+end)
+
+button.MouseLeave:Connect(function()
+    local leaveTween = TweenService:Create(button, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 200, 0, 50), BackgroundColor3 = Color3.fromRGB(45, 55, 72)})
+    leaveTween:Play()
+end)</code></pre>
+                    </div>
+                </div>
+
+                <div id="optim" class="tutorial-content" tabindex="-1">
                     <h2 id="perf-tips">Perf Pro Tips</h2>
                     <p>Single ScreenGui per purpose. Reuse instances for backgrounds/buttons. ScreenInset: Legacy for buttons—avoids core UI overlap. 2025: Use UIStroke for lightweight borders.</p>
                     <ul class="tips-list">
@@ -125,11 +185,36 @@
         </section>
     </main>
 
-    <!-- [Footer same] -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code" aria-hidden="true"></i>
+                    ZH - Zvios Hub
+                </div>
+                <p>&copy; 2025 Zvios Hub. Crafted with grit, glitches, and green text. Pure education—script smart, play fair.</p>
+                <nav aria-label="Footer navigation">
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="#setup">Top</a>
+                        <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener">Discord</a>
+                    </div>
+                </nav>
+                <div class="discord-footer">
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener">
+                        <i class="fab fa-discord" aria-hidden="true"></i>
+                        GUI Glitches? Hit Us Up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast" role="alert" aria-live="polite"></div>
 
     <script>
-        // [Same JS base, plus tabs, TOC, and page-specific like live preview simulation if needed]
-        // For live preview, could add JS to animate the div, but keep simple.
+        /* Full JS from index.html */
+        /* [Paste the entire <script> block] */
     </script>
 </body>
 </html>
