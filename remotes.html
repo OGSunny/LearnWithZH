@@ -8,11 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reuse styles from index, but add page-specific */
         :root {
             --primary-color: #6366f1;
             --secondary-color: #8b5cf6;
             --accent-color: #ec4899;
+            --success-color: #10b981;
             --text-primary: #1f2937;
             --text-secondary: #6b7280;
             --bg-primary: #ffffff;
@@ -57,7 +57,7 @@
             padding: 0 1.5rem;
         }
 
-        /* Navbar - same as index */
+        /* Navbar */
         .navbar {
             background: var(--bg-primary);
             backdrop-filter: blur(10px);
@@ -287,7 +287,7 @@
             color: var(--text-primary);
         }
 
-        /* Footer - same as index */
+        /* Footer */
         .footer {
             background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%);
             padding: 4rem 0 1rem;
@@ -568,7 +568,7 @@ end)</code></pre>
             document.querySelectorAll('.nav-pill').forEach(pill => {
                 pill.addEventListener('click', e => {
                     e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
+                    const targetId = pill.getAttribute('href').substring(1);
                     document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
                     document.querySelectorAll('.tutorial-content').forEach(c => c.classList.remove('active'));
                     pill.classList.add('active');
