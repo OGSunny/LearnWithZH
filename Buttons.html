@@ -1,0 +1,113 @@
+<!-- buttons.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons & GUIs in Roblox - Roblox Script Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Roblox Script Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="remotes.html">Remotes</a></li>
+                <li><a href="buttons.html" class="active">Buttons & GUIs</a></li>
+                <li><a href="exploits.html">Security Basics</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Building Buttons & GUIs</h1>
+            <p>GUIs aren't just pretty—they're your game's front door. Let's make buttons that click, hover, and feel alive.</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="section tutorial">
+            <div class="container">
+                <h2>Starting a Basic GUI</h2>
+                <p>Drop a ScreenGui into StarterGui. Inside? A Frame, then a TextButton. Boom, interactive.</p>
+
+                <div class="code-block">
+                    <h3>LocalScript for Button Click</h3>
+                    <pre><code>local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 100)
+frame.Position = UDim2.new(0.5, -100, 0.5, -50)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.Parent = screenGui
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(1, 0, 1, 0)
+button.Text = "Click Me!"
+button.BackgroundColor3 = Color3.fromRGB(0, 162, 255)
+button.TextColor3 = Color3.new(1,1,1)
+button.Parent = frame
+
+button.MouseButton1Click:Connect(function()
+    button.Text = "Clicked!"
+    wait(1)
+    button.Text = "Click Me!"
+end)</code></pre>
+                </div>
+
+                <h2>Adding Polish</h2>
+                <p>Hovers? Use MouseEnter/MouseLeave. TweenService for smooth animations.</p>
+                <div class="code-block">
+                    <pre><code>local TweenService = game:GetService("TweenService")
+
+local hoverTween = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+local hoverProps = {BackgroundColor3 = Color3.fromRGB(0, 120, 200)}
+
+button.MouseEnter:Connect(function()
+    TweenService:Create(button, hoverTween, hoverProps):Play()
+end)
+
+button.MouseLeave:Connect(function()
+    local leaveProps = {BackgroundColor3 = Color3.fromRGB(0, 162, 255)}
+    TweenService:Create(button, hoverTween, leaveProps):Play()
+end)</code></pre>
+                </div>
+
+                <h2>Pro Moves</h2>
+                <ul>
+                    <li>UDim2 for responsive sizing—scale with screen.</li>
+                    <li>Connect to remotes for server actions.</li>
+                    <li>Test on mobile; buttons gotta be thumb-friendly.</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h3>Quick Tip</h3>
+                    <p>UIListLayout keeps things tidy. No manual positioning headaches.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Roblox Script Hub. Built with curiosity and a bit of caffeine. For educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
