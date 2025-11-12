@@ -1,37 +1,13 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZH - Zvios Hub | Roblox Scripting Mastery</title>
-    <!-- SEO/Meta -->
-    <meta name="description" content="Master Roblox scripting: remotes, GUIs, security. Educational hub by Zvios.">
-    <link rel="canonical" href="https://zvioshub.com/index.html">
-    <!-- OG/Twitter -->
-    <meta property="og:title" content="ZH - Zvios Hub">
-    <meta property="og:description" content="From noob to pro: Unlock remotes, GUIs, and security.">
-    <meta property="og:image" content="https://zvioshub.com/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "Zvios Hub",
-        "url": "https://zvioshub.com"
-    }
-    </script>
-    <!-- Fonts with swap -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <!-- FontAwesome with SRI -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <!-- Prism.js with SRI for syntax highlighting -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" integrity="sha512-vsJ3zH3Z3m5I8J9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQJ9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQJ9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQJ9EodmR8Eod/3SsvR+0qbl4V3W4V7V7pQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-51qC+rkcM9yR0xO1RFSU9uWvfjlv9S9B6T89f9Q/zS6l8s5i8m03VHzpbpJ1ET9sBzvDYTZR2y8G6kV9sR7Zvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:;">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Design System: CSS Custom Properties */
         :root {
             --primary-color: #6366f1;
             --secondary-color: #8b5cf6;
@@ -50,14 +26,6 @@
             --radius-md: 0.75rem;
             --radius-lg: 1rem;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --spacing-xs: 0.25rem; /* 4px */
-            --spacing-sm: 0.5rem; /* 8px */
-            --spacing-md: 1rem; /* 16px */
-            --spacing-lg: 1.5rem; /* 24px */
-            --type-scale-1: clamp(1rem, 2.5vw, 1.125rem); /* Body */
-            --type-scale-2: clamp(1.25rem, 3vw, 1.5rem); /* H3 */
-            --type-scale-3: clamp(1.5rem, 4vw, 2rem); /* H2 */
-            --type-scale-4: clamp(2rem, 5vw, 3rem); /* H1 */
         }
 
         [data-theme="dark"] {
@@ -69,367 +37,953 @@
             --border-color: #374151;
         }
 
-        /* Reduced Motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        /* Base */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; line-height: 1.7; color: var(--text-primary); background-color: var(--bg-primary); overflow-x: hidden; font-size: var(--type-scale-1); }
-        .c-container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); }
-
-        /* Animations */
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(2rem); } to { opacity: 1; transform: translateY(0); } }
-        .c-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
-        .c-stagger { animation-delay: var(--stagger-delay, 0s); }
-
-        /* Skeleton Loader */
-        .c-skeleton { background: var(--bg-tertiary); border-radius: var(--radius-sm); animation: pulse 1.5s ease-in-out infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-
-        /* Navbar (BEM: block__element) */
-        .c-navbar { background: var(--bg-primary); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: fixed; width: 100%; top: 0; z-index: 1000; transition: var(--transition); }
-        .c-navbar__container { max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-md); display: flex; justify-content: space-between; align-items: center; height: 4.375rem; } /* 70px */
-        .c-navbar__logo { display: flex; align-items: center; gap: var(--spacing-sm); color: var(--primary-color); text-decoration: none; font-size: 1.5rem; font-weight: 700; }
-        .c-navbar__menu { display: flex; list-style: none; gap: 2rem; align-items: center; }
-        .c-navbar__link { display: flex; align-items: center; gap: var(--spacing-sm); color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: var(--transition); padding: var(--spacing-sm) 1rem; border-radius: var(--radius-sm); position: relative; }
-        .c-navbar__link:hover, .c-navbar__link--active { color: var(--primary-color); background: var(--bg-secondary); }
-        .c-navbar__link:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
-        .c-theme-toggle { cursor: pointer; color: var(--text-secondary); font-size: 1.2rem; padding: var(--spacing-sm); border-radius: 50%; transition: var(--transition); }
-        .c-theme-toggle:hover, .c-theme-toggle:focus { background: var(--bg-secondary); color: var(--primary-color); outline: 2px solid var(--primary-color); outline-offset: 2px; }
-        .c-hamburger { display: none; flex-direction: column; cursor: pointer; gap: 0.25rem; }
-        .c-hamburger span { width: 25px; height: 3px; background: var(--text-primary); border-radius: 9999px; transition: var(--transition); }
-        /* Mobile Nav */
-        @media (max-width: 48rem) { /* 768px */
-            .c-hamburger { display: flex; }
-            .c-navbar__menu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-primary); flex-direction: column; padding: var(--spacing-md); box-shadow: var(--shadow-medium); }
-            .c-navbar__menu--active { display: flex; }
-            .c-navbar__link:focus { outline: none; background: var(--bg-secondary); }
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
         }
 
-        /* Hero with Particles Canvas */
-        .c-hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
-        .c-hero__bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%); opacity: 0.95; }
-        #particles-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.3; }
-        .c-hero__content { position: relative; z-index: 2; max-width: 900px; padding: 0 2rem; }
-        .c-hero__title { font-size: var(--type-scale-4); font-weight: 700; margin-bottom: var(--spacing-lg); background: linear-gradient(135deg, white 0%, #f3f4f6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .c-hero__subtitle { font-size: 1.3rem; margin-bottom: 2.5rem; opacity: 0.95; font-weight: 400; }
-        .c-hero__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .c-cta-button { display: inline-flex; align-items: center; gap: var(--spacing-sm); padding: 1rem 2.5rem; text-decoration: none; font-weight: 600; border-radius: var(--radius-lg); transition: var(--transition); font-size: 1.1rem; position: relative; overflow: hidden; cursor: pointer; touch-action: manipulation; min-height: 44px; min-width: 44px; /* Touch target */ }
-        .c-cta-button::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s; }
-        .c-cta-button:hover::before { left: 100%; }
-        .c-cta-button--primary { background: var(--accent-color); color: white; box-shadow: var(--shadow-medium); }
-        .c-cta-button--primary:hover, .c-cta-button--primary:focus { transform: translateY(-3px) scale(1.05); box-shadow: var(--shadow-large); outline: 2px solid white; outline-offset: 2px; }
-        .c-cta-button--secondary { background: transparent; color: white; border: 2px solid white; }
-        .c-cta-button--secondary:hover, .c-cta-button--secondary:focus { background: white; color: var(--primary-color); transform: translateY(-3px) scale(1.05); outline: 2px solid var(--primary-color); outline-offset: 2px; }
-        .c-cta-button--magnetic { --magnetic-strength: 20px; transition: transform var(--transition); }
-        .c-cta-button--magnetic:hover { transform: translate(var(--tx, 0), var(--ty, 0)) scale(1.05); }
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+            opacity: 0.95;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, white 0%, #f3f4f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button.primary {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .cta-button.primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--shadow-large);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px) scale(1.05);
+        }
 
         /* Page Header */
-        .c-page-header { padding: 6rem 0 4rem; text-align: center; background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%); position: relative; }
-        .c-header-visual { font-size: 5rem; color: var(--primary-color); margin-bottom: 1rem; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .c-header-content h1 { font-size: var(--type-scale-3); margin-bottom: 1rem; font-weight: 700; }
-        .c-header-content p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; opacity: 0.9; }
+        .page-header {
+            padding: 6rem 0 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            position: relative;
+        }
+
+        .header-visual {
+            font-size: 5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .header-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
 
         /* Sections */
-        .c-section { padding: 6rem 0; }
-        .c-section h2 { font-size: var(--type-scale-3); text-align: center; margin-bottom: 3.5rem; font-weight: 600; position: relative; }
-        .c-section h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--primary-color); margin: 1rem auto; border-radius: 2px; }
-        .c-spotlight { background: var(--bg-secondary); }
-        .c-spotlight-intro { text-align: center; max-width: 900px; margin: 0 auto 4rem; font-size: 1.2rem; opacity: 0.9; }
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section h2 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 3.5rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .spotlight {
+            background: var(--bg-secondary);
+        }
+
+        .spotlight-intro {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
 
         /* Cards Grid */
-        .c-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
-        .c-feature-card { background: var(--bg-primary); padding: 3rem 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-medium); transition: var(--transition); text-align: center; border: 1px solid var(--border-color); position: relative; overflow: hidden; }
-        .c-feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); }
-        .c-feature-card:hover { transform: translateY(-10px) rotate(1deg); box-shadow: var(--shadow-large); }
-        .c-card-icon { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 1.5rem; transition: var(--transition); }
-        .c-feature-card:hover .c-card-icon { transform: scale(1.1); }
-        .c-feature-card h3 { font-size: var(--type-scale-2); margin-bottom: 1.2rem; color: var(--text-primary); }
-        .c-feature-card p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.05rem; }
-        .c-card-link { display: inline-flex; align-items: center; gap: var(--spacing-sm); color: var(--primary-color); text-decoration: none; font-weight: 600; transition: var(--transition); }
-        .c-card-link:hover span { color: var(--secondary-color); }
-        .c-card-link i { transition: transform 0.3s ease; }
-        .c-card-link:hover i { transform: translateX(8px); }
-        .c-card-link:focus { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+        .cards-grid,
+        .stories-grid,
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card,
+        .story-card,
+        .resource-card {
+            background: var(--bg-primary);
+            padding: 3rem 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-medium);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before,
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .feature-card:hover,
+        .story-card:hover,
+        .resource-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: var(--shadow-large);
+        }
+
+        .card-icon,
+        .story-card i {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .card-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3,
+        .story-card h3,
+        .resource-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+        }
+
+        .feature-card p,
+        .story-card p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .card-link:hover span {
+            color: var(--secondary-color);
+        }
+
+        .card-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover i {
+            transform: translateX(8px);
+        }
 
         /* Stories */
-        .c-stories { background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%); }
-        .c-story-card { padding: 2.5rem; }
-        .c-story-card i { font-size: 3rem; margin-bottom: 1.2rem; color: var(--accent-color); }
+        .stories {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .story-card {
+            padding: 2.5rem;
+        }
+
+        .story-card i {
+            font-size: 3rem;
+            margin-bottom: 1.2rem;
+            color: var(--accent-color);
+        }
 
         /* Community */
-        .c-community { background: var(--success-color); color: white; text-align: center; }
-        .c-community-content { max-width: 800px; margin: 0 auto; }
-        .c-discord-link { display: inline-flex; align-items: center; gap: 1rem; background: rgba(255,255,255,0.2); color: white; padding: 1.5rem 3rem; border-radius: var(--radius-lg); text-decoration: none; font-weight: 600; font-size: 1.2rem; margin-top: 2rem; transition: var(--transition); backdrop-filter: blur(10px); min-height: 44px; }
-        .c-discord-link:hover, .c-discord-link:focus { background: rgba(255,255,255,0.3); transform: scale(1.05); outline: 2px solid white; outline-offset: 2px; }
+        .community {
+            background: var(--success-color);
+            color: white;
+            text-align: center;
+        }
+
+        .community-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 1.5rem 3rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .discord-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
 
         /* FAQ */
-        .c-faq { background: var(--bg-primary); }
-        .c-faq-item { background: var(--bg-secondary); margin-bottom: 1rem; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-light); }
-        .c-faq-question { padding: 1.5rem; background: var(--primary-color); color: white; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; transition: var(--transition); }
-        .c-faq-question:hover { background: var(--secondary-color); }
-        .c-faq-question:focus { outline: 2px solid white; outline-offset: 2px; }
-        .c-faq-answer { padding: 0 1.5rem 1.5rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-        .c-faq-answer--active { max-height: 200px; padding: 1.5rem; }
+        .faq {
+            background: var(--bg-primary);
+        }
+
+        .faq-item {
+            background: var(--bg-secondary);
+            margin-bottom: 1rem;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: var(--secondary-color);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding: 1.5rem;
+        }
 
         /* Disclaimer */
-        .c-disclaimer { background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%); text-align: center; }
-        .c-disclaimer-content { max-width: 800px; margin: 0 auto; }
-        .c-disclaimer-content i { font-size: 3.5rem; color: var(--accent-color); margin-bottom: 1rem; }
-        .c-disclaimer-content p { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9; }
+        .disclaimer {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            text-align: center;
+        }
 
-        /* Code Blocks with Prism & Copy */
-        .c-code-block { background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 2rem; margin: 2rem 0; overflow-x: auto; position: relative; }
-        .c-code-block h3 { color: var(--primary-color); margin-bottom: 1rem; font-size: 1.1rem; position: relative; padding-left: 1rem; }
-        .c-copy-btn { position: absolute; top: var(--spacing-sm); right: var(--spacing-sm); background: var(--primary-color); color: white; border: none; padding: var(--spacing-sm); border-radius: var(--radius-sm); cursor: pointer; transition: var(--transition); }
-        .c-copy-btn:hover, .c-copy-btn:focus { background: var(--secondary-color); outline: 2px solid var(--primary-color); outline-offset: 2px; }
-        pre { font-family: 'JetBrains Mono', monospace; line-height: 1.6; white-space: pre-wrap; margin-top: 1rem; }
-        /* Gradient highlights for key terms */
-        .c-key-term { background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; }
+        .disclaimer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-        /* Toast for Copy */
-        .c-toast { position: fixed; top: 2rem; right: 2rem; background: var(--success-color); color: white; padding: 1rem; border-radius: var(--radius-sm); transform: translateX(100%); transition: transform 0.3s ease; z-index: 1001; }
-        .c-toast--show { transform: translateX(0); }
+        .disclaimer-content i {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
 
-        /* Progress Bar */
-        .c-progress-bar { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: var(--border-color); z-index: 1001; }
-        .c-progress-bar__fill { height: 100%; background: var(--primary-color); width: 0%; transition: width 0.1s ease; }
+        .disclaimer-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Tutorial */
+        .tutorial {
+            background: var(--bg-primary);
+        }
+
+        .tutorial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .nav-pill:hover,
+        .nav-pill.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tutorial-content {
+            display: none;
+        }
+
+        .tutorial-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: '<code>';
+            position: absolute;
+            top: 0.5rem;
+            left: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-block h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            margin-top: 1rem;
+        }
+
+        /* Lists */
+        .traps-list,
+        .tips-list,
+        .defenses-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .traps-list li,
+        .tips-list li,
+        .defenses-list li {
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary-color);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .traps-list li:hover {
+            border-left-color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7d7 100%);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            margin: 2.5rem 0;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: var(--shadow-light);
+        }
+
+        [data-theme="dark"] .tip-box {
+            background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+        }
+
+        .tip-box i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--accent-color);
+        }
+
+        .tip-box h3 {
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .resources ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-card li {
+            margin-bottom: 1rem;
+        }
+
+        .resource-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            background: var(--bg-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .resource-card a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
 
         /* Footer */
-        .c-footer { background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%); padding: 4rem 0 1rem; color: var(--text-secondary); }
-        .c-footer__content { text-align: center; }
-        .c-footer__logo { display: flex; align-items: center; gap: var(--spacing-sm); color: var(--primary-color); font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .c-footer__links { display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap; }
-        .c-footer__links a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); padding: var(--spacing-sm) 1rem; border-radius: var(--radius-sm); }
-        .c-footer__links a:hover, .c-footer__links a:focus { color: var(--primary-color); background: rgba(99, 102, 241, 0.1); outline: 2px solid var(--primary-color); outline-offset: 2px; }
-        .c-discord-footer { margin-top: 2rem; padding: 1rem; background: var(--success-color); color: white; border-radius: var(--radius-lg); }
-        .c-discord-footer a { color: white; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: var(--spacing-sm); }
+        .footer {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #111827 100%);
+            padding: 4rem 0 1rem;
+            color: var(--text-secondary);
+        }
 
-        /* Newsletter Form (GDPR) */
-        .c-newsletter { background: var(--bg-secondary); padding: 2rem; border-radius: var(--radius-lg); margin: 2rem 0; text-align: center; }
-        .c-newsletter input { padding: var(--spacing-sm); border: 1px solid var(--border-color); border-radius: var(--radius-sm); margin-right: var(--spacing-sm); }
-        .c-newsletter button { background: var(--primary-color); color: white; border: none; padding: var(--spacing-sm) 1rem; border-radius: var(--radius-sm); cursor: pointer; }
-        .c-newsletter small { display: block; margin-top: var(--spacing-sm); font-size: 0.875rem; opacity: 0.7; } /* GDPR notice */
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .discord-footer {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: var(--success-color);
+            color: white;
+            border-radius: var(--radius-lg);
+        }
+
+        .discord-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
         /* Mobile */
-        @media (max-width: 48rem) {
-            .c-hero__buttons { flex-direction: column; align-items: center; }
-            .c-section { padding: 4rem 0; }
-            .c-section h2 { font-size: var(--type-scale-2); }
-            .c-cards-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: var(--shadow-medium);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tutorial-nav {
+                flex-direction: column;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .section h2 {
+                font-size: 2.2rem;
+            }
+
+            .faq-question {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
-<body data-theme="light">
-    <!-- Progress Bar -->
-    <div class="c-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="c-progress-bar__fill" id="progress-fill"></div>
-    </div>
-
-    <!-- Skip Link -->
-    <a href="#main-content" class="c-sr-only">Skip to main content</a>
-
-    <nav class="c-navbar" role="navigation" aria-label="Main navigation">
-        <div class="c-navbar__container">
-            <a href="index.html" class="c-navbar__logo" aria-label="Home - Zvios Hub">
-                <i class="fas fa-code" aria-hidden="true"></i>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-code"></i>
                 ZH
-            </a>
-            <ul class="c-navbar__menu" id="nav-menu">
-                <li><a href="index.html" class="c-navbar__link c-navbar__link--active" aria-current="page"><i class="fas fa-home" aria-hidden="true"></i> Home</a></li>
-                <li><a href="remotes.html" class="c-navbar__link"><i class="fas fa-broadcast-tower" aria-hidden="true"></i> Remotes</a></li>
-                <li><a href="buttons.html" class="c-navbar__link"><i class="fas fa-mouse-pointer" aria-hidden="true"></i> GUIs</a></li>
-                <li><a href="exploits.html" class="c-navbar__link"><i class="fas fa-shield-alt" aria-hidden="true"></i> Security</a></li>
-                <li><a href="resources.html" class="c-navbar__link"><i class="fas fa-book-open" aria-hidden="true"></i> Resources</a></li>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="remotes.html" class="nav-link"><i class="fas fa-broadcast-tower"></i> Remotes</a></li>
+                <li><a href="buttons.html" class="nav-link"><i class="fas fa-mouse-pointer"></i> GUIs</a></li>
+                <li><a href="exploits.html" class="nav-link"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="resources.html" class="nav-link"><i class="fas fa-book-open"></i> Resources</a></li>
             </ul>
-            <button class="c-theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
-            </button>
-            <button class="c-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
+            <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
-            </button>
+            </div>
         </div>
     </nav>
 
-    <header class="c-hero">
-        <canvas id="particles-canvas"></canvas>
-        <div class="c-hero__bg" aria-hidden="true"></div>
-        <div class="c-hero__content">
-            <h1 class="c-hero__title">Master Roblox Scripting with ZH</h1>
-            <p class="c-hero__subtitle">From noob to pro: Unlock <span class="c-key-term">remotes</span> that sync like clockwork, GUIs that steal the show, and security that laughs at exploits. Zvios Hub's got the sauce—educational fire only. Join the crew and level up your game dev game.</p>
-            <div class="c-hero__buttons">
-                <a href="#vault" class="c-cta-button c-cta-button--primary c-cta-button--magnetic" aria-label="Dive into tutorials"><i class="fas fa-rocket" aria-hidden="true"></i> Dive In</a>
-                <a href="resources.html" class="c-cta-button c-cta-button--secondary c-cta-button--magnetic" aria-label="Access toolkit"><i class="fas fa-tools" aria-hidden="true"></i> Toolkit</a>
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Master Roblox Scripting with ZH</h1>
+            <p class="hero-subtitle">From noob to pro: Unlock remotes that sync like clockwork, GUIs that steal the show, and security that laughs at exploits. Zvios Hub's got the sauce—educational fire only. Join the crew and level up your game dev game.</p>
+            <div class="hero-buttons">
+                <a href="#vault" class="cta-button primary"><i class="fas fa-rocket"></i> Dive In</a>
+                <a href="resources.html" class="cta-button secondary"><i class="fas fa-tools"></i> Toolkit</a>
             </div>
         </div>
     </header>
 
-    <main id="main-content" role="main">
-        <section class="c-section c-spotlight" id="vault" aria-labelledby="vault-heading">
-            <div class="c-container">
-                <div class="c-spotlight-intro c-fade-in-up">
-                    <h2 id="vault-heading">What's Cooking in ZH?</h2>
+    <main class="main-content">
+        <section id="vault" class="section spotlight">
+            <div class="container">
+                <div class="spotlight-intro fade-in-up">
+                    <h2>What's Cooking in ZH?</h2>
                     <p>Built by Zvios for devs grinding in the shadows. We've been there—endless Studio crashes, exploit heartbreaks, that one GUI that just won't align. This hub? Real talk, battle-tested code, and tips sharper than a noob's aimbot. No fluff, all gains.</p>
                 </div>
                 
-                <div class="c-cards-grid">
-                    <article class="c-feature-card c-fade-in-up c-stagger" style="--stagger-delay: 0.1s;">
-                        <div class="c-card-icon">
-                            <i class="fas fa-broadcast-tower" aria-hidden="true"></i>
+                <div class="cards-grid">
+                    <div class="card feature-card fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="card-icon">
+                            <i class="fas fa-broadcast-tower"></i>
                         </div>
                         <h3>Remotes: Sync Wizards</h3>
                         <p>Advanced batching, rate limits, and error-proof pings. Turn client-server chaos into symphony.</p>
-                        <a href="remotes.html" class="c-card-link">
+                        <a href="remotes.html" class="card-link">
                             <span>Wire Up</span>
-                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
-                    </article>
-                    <article class="c-feature-card c-fade-in-up c-stagger" style="--stagger-delay: 0.2s;">
-                        <div class="c-card-icon">
-                            <i class="fas fa-mouse-pointer" aria-hidden="true"></i>
+                    </div>
+                    <div class="card feature-card fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="card-icon">
+                            <i class="fas fa-mouse-pointer"></i>
                         </div>
                         <h3>GUIs: Pixel Perfection</h3>
                         <p>Optimized layouts, mobile-first magic, and hovers that pop. Make interfaces users crave.</p>
-                        <a href="buttons.html" class="c-card-link">
+                        <a href="buttons.html" class="card-link">
                             <span>Design Drop</span>
-                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
-                    </article>
-                    <article class="c-feature-card c-fade-in-up c-stagger" style="--stagger-delay: 0.3s;">
-                        <div class="c-card-icon">
-                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                    </div>
+                    <div class="card feature-card fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="card-icon">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
                         <h3>Security: Exploit Annihilator</h3>
                         <p>2025 tactics: Cheat mitigations, universe locks, and sanity checks that ban bots before breakfast.</p>
-                        <a href="exploits.html" class="c-card-link">
+                        <a href="exploits.html" class="card-link">
                             <span>Lockdown</span>
-                            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
-                    </article>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="c-section c-stories">
-            <div class="c-container">
-                <h2 id="stories-heading">Dev War Stories</h2>
-                <div class="c-stories-grid c-cards-grid">
-                    <article class="c-story-card c-fade-in-up c-stagger" style="--stagger-delay: 0.1s;">
-                        <i class="fas fa-bolt" aria-hidden="true"></i>
+        <section class="section stories">
+            <div class="container">
+                <h2>Dev War Stories</h2>
+                <div class="stories-grid">
+                    <div class="story-card fade-in-up" style="animation-delay: 0.1s;">
+                        <i class="fas fa-bolt"></i>
                         <h3>Remote Rampage Rescue</h3>
                         <p>Server melted from spam fires—added debounce and batching. 200 players, zero lag. ZH tip: Always throttle the throttle.</p>
-                    </article>
-                    <article class="c-story-card c-fade-in-up c-stagger" style="--stagger-delay: 0.2s;">
-                        <i class="fas fa-palette" aria-hidden="true"></i>
+                    </div>
+                    <div class="story-card fade-in-up" style="animation-delay: 0.2s;">
+                        <i class="fas fa-palette"></i>
                         <h3>GUI Glow-Up</h3>
                         <p>Flat buttons bombed conversions. TweenService + UIListLayout? Shop sales spiked 40%. Mobile test or bust.</p>
-                    </article>
-                    <article class="c-story-card c-fade-in-up c-stagger" style="--stagger-delay: 0.3s;">
-                        <i class="fas fa-lock-open" aria-hidden="true"></i>
+                    </div>
+                    <div class="story-card fade-in-up" style="animation-delay: 0.3s;">
+                        <i class="fas fa-lock-open"></i>
                         <h3>Exploit Evasion Epic</h3>
                         <p>Speed hackers wrecked leaderboards. Server-side velocity caps + logs? Clean games, happy mods. Defense is the best offense.</p>
-                    </article>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="c-section c-community">
-            <div class="c-container">
-                <div class="c-community-content c-fade-in-up">
+        <section class="section community">
+            <div class="container">
+                <div class="community-content fade-in-up">
                     <h2>Join the Zvios Squad</h2>
                     <p>Got questions? Wild ideas? Drop into Discord for live collabs, script shares, and roast sessions. We're 500+ strong—your next breakthrough's one ping away.</p>
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener" class="c-discord-link" aria-label="Join ZH Discord server">
-                        <i class="fab fa-discord" aria-hidden="true"></i>
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" class="discord-link">
+                        <i class="fab fa-discord"></i>
                         Jump In ZH Discord
                     </a>
                 </div>
             </div>
         </section>
 
-        <section class="c-section c-faq">
-            <div class="c-container">
+        <section class="section faq">
+            <div class="container">
                 <h2>Quick Q&A</h2>
-                <div class="c-faq-grid">
-                    <article class="c-faq-item c-fade-in-up" style="--stagger-delay: 0.1s;">
-                        <header class="c-faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq1">
-                            <span>What's the deal with <span class="c-key-term">RemoteFunctions</span> vs Events?</span>
-                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </header>
-                        <div id="faq1" class="c-faq-answer">
+                <div class="faq-grid">
+                    <div class="faq-item fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span>What's the deal with RemoteFunctions vs Events?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
                             <p>Events for fire-and-forget; Functions for replies. Use Events 90%—keeps things async and snappy.</p>
                         </div>
-                    </article>
-                    <article class="c-faq-item c-fade-in-up" style="--stagger-delay: 0.2s;">
-                        <header class="c-faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq2">
+                    </div>
+                    <div class="faq-item fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
                             <span>How do I make GUIs mobile-friendly?</span>
-                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </header>
-                        <div id="faq2" class="c-faq-answer">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
                             <p>UDim2 scaling + UIAspectRatioConstraint. Test on emulators—thumbs don't click pixels.</p>
                         </div>
-                    </article>
-                    <article class="c-faq-item c-fade-in-up" style="--stagger-delay: 0.3s;">
-                        <header class="c-faq-question" tabindex="0" role="button" aria-expanded="false" aria-controls="faq3">
+                    </div>
+                    <div class="faq-item fade-in-up" style="animation-delay: 0.3s;">
+                        <div class="faq-question" onclick="toggleFaq(this)">
                             <span>Exploits still happening? Help!</span>
-                            <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                        </header>
-                        <div id="faq3" class="c-faq-answer">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
                             <p>Layer defenses: Validate everything server-side, use heartbeat checks. Hit Discord for custom audits.</p>
                         </div>
-                    </article>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="c-section c-disclaimer">
-            <div class="c-container">
-                <div class="c-disclaimer-content c-fade-in-up">
-                    <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+        <section class="section disclaimer">
+            <div class="container">
+                <div class="disclaimer-content fade-in-up">
+                    <i class="fas fa-exclamation-triangle"></i>
                     <h2>Stay Legit, Dev</h2>
                     <p>ZH is your educational arsenal—build epic, don't break rules. Roblox ToS? Gospel. Exploits for learning defense only. Questions? Discord's calling.</p>
-                    <a href="https://create.roblox.com/docs" target="_blank" rel="noopener" class="c-cta-button c-cta-button--secondary">Official Docs</a>
+                    <a href="https://create.roblox.com/docs" target="_blank" class="cta-button secondary">Official Docs</a>
                 </div>
-            </div>
-        </section>
-
-        <!-- Newsletter -->
-        <section class="c-section">
-            <div class="c-container">
-                <form class="c-newsletter" aria-label="Newsletter signup">
-                    <h3>Stay Updated</h3>
-                    <input type="email" placeholder="Your email" aria-label="Email address" required>
-                    <button type="submit" aria-label="Subscribe">Subscribe</button>
-                    <small>I agree to receive updates (GDPR compliant - unsubscribe anytime).</small>
-                </form>
             </div>
         </section>
     </main>
 
-    <footer class="c-footer" role="contentinfo">
-        <div class="c-container">
-            <div class="c-footer__content">
-                <div class="c-footer__logo">
-                    <i class="fas fa-code" aria-hidden="true"></i>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-code"></i>
                     ZH - Zvios Hub
                 </div>
                 <p>&copy; 2025 Zvios Hub. Crafted with grit, glitches, and green text. Pure education—script smart, play fair.</p>
-                <nav class="c-footer__links" aria-label="Footer navigation">
+                <div class="footer-links">
                     <a href="resources.html">Resources</a>
                     <a href="#vault">Top</a>
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener">Discord</a>
-                </nav>
-                <div class="c-discord-footer">
-                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank" rel="noopener">
-                        <i class="fab fa-discord" aria-hidden="true"></i>
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">Discord</a>
+                </div>
+                <div class="discord-footer">
+                    <a href="https://discord.gg/tfS8GDaxQH" target="_blank">
+                        <i class="fab fa-discord"></i>
                         Join ZH Community on Discord
                     </a>
                 </div>
@@ -437,202 +991,68 @@
         </div>
     </footer>
 
-    <!-- Toast -->
-    <div id="toast" class="c-toast" role="status" aria-live="polite" aria-atomic="true">Copied!</div>
-
     <script>
-        // Shared Utils (Modular, Debounced, Error-Handled)
-        const utils = {
-            debounce(fn, delay) {
-                let timeout;
-                return (...args) => {
-                    clearTimeout(timeout);
-                    timeout = setTimeout(() => fn(...args), delay);
-                };
-            },
-            copyToClipboard(text) {
-                navigator.clipboard.writeText(text).then(() => {
-                    const toast = document.getElementById('toast');
-                    toast.classList.add('c-toast--show');
-                    setTimeout(() => toast.classList.remove('c-toast--show'), 2000);
-                }).catch(err => console.error('Copy failed', err));
-            },
-            loadSkeleton(target) {
-                // Replace skeleton with real content (simplified for demo)
-                document.querySelectorAll('.c-skeleton').forEach(el => el.remove());
-                // Real content loaded here (e.g., fetch if dynamic)
-            }
-        };
-
-        // DOM Ready
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                // Theme Toggle (localStorage)
-                const body = document.body;
-                const themeIcon = document.getElementById('theme-icon');
-                const savedTheme = localStorage.getItem('theme') || 'light';
-                body.dataset.theme = savedTheme;
-                themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-                document.getElementById('theme-toggle').addEventListener('click', () => {
-                    const isDark = body.dataset.theme === 'dark';
-                    body.dataset.theme = isDark ? 'light' : 'dark';
-                    themeIcon.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-                    localStorage.setItem('theme', body.dataset.theme);
-                });
-
-                // Mobile Menu
-                const hamburger = document.getElementById('hamburger');
-                const navMenu = document.getElementById('nav-menu');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (hamburger && navMenu) {
                 hamburger.addEventListener('click', () => {
-                    const isActive = navMenu.classList.toggle('c-navbar__menu--active');
-                    hamburger.setAttribute('aria-expanded', isActive);
+                    hamburger.classList.toggle('active');
+                    navMenu.classList.toggle('active');
                 });
-                document.querySelectorAll('.c-navbar__link').forEach(link => {
+                document.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', () => {
                         hamburger.classList.remove('active');
-                        navMenu.classList.remove('c-navbar__menu--active');
-                        hamburger.setAttribute('aria-expanded', 'false');
+                        navMenu.classList.remove('active');
                     });
                 });
-
-                // Smooth Scroll
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', e => {
-                        e.preventDefault();
-                        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-                    });
-                });
-
-                // Progress Bar (Debounced)
-                const updateProgress = utils.debounce(() => {
-                    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
-                    const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
-                    document.getElementById('progress-fill').style.width = `${progress}%`;
-                }, 10);
-                window.addEventListener('scroll', updateProgress);
-                updateProgress();
-
-                // Stagger Animations with IntersectionObserver
-                const observerOptions = { threshold: 0.1 };
-                const observer = new IntersectionObserver(entries => {
-                    entries.forEach((entry, index) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('c-fade-in-up');
-                            entry.target.style.setProperty('--stagger-delay', `${index * 0.1}s`);
-                        }
-                    });
-                }, observerOptions);
-                document.querySelectorAll('.c-stagger').forEach(el => observer.observe(el));
-
-                // FAQ Toggle
-                document.querySelectorAll('.c-faq-question').forEach(question => {
-                    question.addEventListener('click', (e) => {
-                        const answer = e.currentTarget.nextElementSibling;
-                        const isActive = answer.classList.toggle('c-faq-answer--active');
-                        e.currentTarget.setAttribute('aria-expanded', isActive);
-                        const icon = e.currentTarget.querySelector('i');
-                        icon.style.transform = isActive ? 'rotate(180deg)' : 'rotate(0deg)';
-                    });
-                    question.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            question.click();
-                        }
-                    });
-                });
-
-                // Newsletter (Stub - integrate Mailchimp)
-                document.querySelector('.c-newsletter').addEventListener('submit', e => {
-                    e.preventDefault();
-                    // Submit logic here
-                    alert('Subscribed! (Stub)');
-                });
-
-                // Load Content, Remove Skeletons
-                utils.loadSkeleton();
-
-                // Copy Buttons (for code blocks - add per block)
-                document.querySelectorAll('.c-copy-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const code = btn.closest('.c-code-block').querySelector('pre code').textContent;
-                        utils.copyToClipboard(code);
-                    });
-                });
-
-                // Prism Highlighting
-                Prism.highlightAll();
-
-                // Magnetic Cursor (for CTAs)
-                const magneticTargets = document.querySelectorAll('.c-cta-button--magnetic');
-                const handleMagnetic = (e) => {
-                    const { clientX, clientY } = e;
-                    magneticTargets.forEach(target => {
-                        const rect = target.getBoundingClientRect();
-                        const centerX = rect.left + rect.width / 2;
-                        const centerY = rect.top + rect.height / 2;
-                        const tx = ((clientX - centerX) / centerX) * 20;
-                        const ty = ((clientY - centerY) / centerY) * 20;
-                        target.style.setProperty('--tx', `${tx}px`);
-                        target.style.setProperty('--ty', `${ty}px`);
-                    });
-                };
-                document.addEventListener('mousemove', handleMagnetic);
-
-                // Particles Canvas
-                const canvas = document.getElementById('particles-canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                // Simple particle system (code snippets falling)
-                class Particle {
-                    constructor() {
-                        this.x = Math.random() * canvas.width;
-                        this.y = -10;
-                        this.vy = Math.random() * 2 + 1;
-                        this.text = ['local', 'function', 'end', 'remote', 'GUI'][Math.floor(Math.random() * 5)];
-                    }
-                    update() { this.y += this.vy; }
-                    draw() {
-                        ctx.fillStyle = 'rgba(255,255,255,0.8)';
-                        ctx.font = '12px JetBrains Mono';
-                        ctx.fillText(this.text, this.x, this.y);
-                    }
-                }
-                const particles = Array.from({ length: 50 }, () => new Particle());
-                function animate() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    particles.forEach(p => { p.update(); p.draw(); if (p.y > canvas.height) p.y = -10; });
-                    requestAnimationFrame(animate);
-                }
-                animate();
-                window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-
-                // Progress Tracking Stub (localStorage)
-                const tutorials = ['remotes', 'guis', 'security'];
-                tutorials.forEach(tut => {
-                    if (localStorage.getItem(`zh-progress-${tut}`) === 'completed') {
-                        // Mark as done (e.g., checkmarks)
-                    }
-                });
-
-                // Error Handling Example
-                window.addEventListener('error', e => console.error('Global error:', e.message));
-
-            } catch (error) {
-                console.error('Init failed:', error);
-                // Graceful degradation: remove animations
-                document.body.classList.add('no-js');
             }
+
+            // Theme toggle
+            const themeToggle = document.getElementById('theme-icon');
+            const body = document.body;
+            themeToggle.addEventListener('click', () => {
+                const isDark = body.dataset.theme === 'dark';
+                body.dataset.theme = isDark ? 'light' : 'dark';
+                themeToggle.className = isDark ? 'fas fa-moon' : 'fas fa-sun';
+                localStorage.setItem('theme', body.dataset.theme);
+            });
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.dataset.theme = savedTheme;
+            themeToggle.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', e => {
+                    e.preventDefault();
+                    document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Fade in on scroll
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            });
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // FAQ toggle
+            window.toggleFaq = function(element) {
+                const answer = element.nextElementSibling;
+                const icon = element.querySelector('i');
+                answer.classList.toggle('active');
+                icon.style.transform = answer.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+            };
         });
-
-        // PWA Service Worker Stub
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(err => console.error('SW failed', err));
-        }
-
-        // Unit Test Stub (console-based)
-        // Test: Theme toggle
-        console.assert(document.body.dataset.theme === 'light', 'Theme init failed');
     </script>
 </body>
 </html>
