@@ -1,0 +1,100 @@
+<!-- remotes.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remotes in Roblox - Roblox Script Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Roblox Script Hub</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="remotes.html" class="active">Remotes</a></li>
+                <li><a href="buttons.html">Buttons & GUIs</a></li>
+                <li><a href="exploits.html">Security Basics</a></li>
+                <li><a href="resources.html">Resources</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Mastering Remotes</h1>
+            <p>Remotes are the unsung heroes of multiplayer Roblox. They let your client talk to the server (and vice versa) safely. Let's get into it.</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="section tutorial">
+            <div class="container">
+                <h2>What Are Remotes?</h2>
+                <p>RemoteEvents and RemoteFunctions. Events fire one-way (client to server or server to client). Functions? They wait for a reply. Pro tip: Always validate on the server—players can be sneaky.</p>
+
+                <div class="code-block">
+                    <h3>Server Script Example (RemoteEvent Fire)</h3>
+                    <pre><code>local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remoteEvent = Instance.new("RemoteEvent")
+remoteEvent.Name = "PlayerJumped"
+remoteEvent.Parent = ReplicatedStorage
+
+remoteEvent.OnServerEvent:Connect(function(player, position)
+    -- Validate the position
+    if position and typeof(position) == "Vector3" then
+        print(player.Name .. " jumped at " .. tostring(position))
+        -- Do server stuff
+    end
+end)</code></pre>
+                </div>
+
+                <h2>Client Side</h2>
+                <p>From the local script:</p>
+                <div class="code-block">
+                    <pre><code>local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remoteEvent = ReplicatedStorage:WaitForChild("PlayerJumped")
+
+local UserInputService = game:GetService("UserInputService")
+UserInputService.JumpRequest:Connect(function()
+    local character = game.Players.LocalPlayer.Character
+    if character then
+        local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+        if humanoidRootPart then
+            remoteEvent:FireServer(humanoidRootPart.Position)
+        end
+    end
+end)</code></pre>
+                </div>
+
+                <h2>Common Pitfalls</h2>
+                <ul>
+                    <li>Forget to parent remotes to ReplicatedStorage? Chaos.</li>
+                    <li>No server validation? Exploit city.</li>
+                    <li>RemoteFunctions for fire-and-forget? Use Events instead.</li>
+                </ul>
+
+                <div class="tip-box">
+                    <h3>Quick Tip</h3>
+                    <p>Rate-limit your remotes. Spam protection is your friend.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Roblox Script Hub. Built with curiosity and a bit of caffeine. For educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
